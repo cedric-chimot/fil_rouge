@@ -13,6 +13,21 @@
 
 <header class="header">
 
+   <div class="header-1">
+      <div class="flex">
+            <div class="share">
+               <?php
+                  $count_panier_items = $conn->prepare("SELECT * FROM `panier` WHERE user_id = ?");
+                  $count_panier_items->execute([$user_id]);
+                  $total_panier_counts = $count_panier_items->rowCount();
+               ?>
+               <img src="assets/images/HEADER/picto_pays.png" alt="">
+               <a href="panier.php"> <i class="fas fa-shopping-cart"></i> <span class="nombre"><span>(<?= $total_panier_counts; ?>)</span></span></a>
+               <a href="search_page.php"><i class="fas fa-search"></i></a>
+            </div>
+      </div>
+   </div>
+
    <section class="flex">
 
       <a href="home.php" class="logo">
@@ -21,20 +36,13 @@
 
       <nav class="navbar">
          <a href="home.php">Accueil</a>
-         <a href="orders.php">Produits</a>
-         <a href="shop.php">Commandes</a>
+         <a href="recap_produits.php">Produits</a>
+         <a href="recap_commandes.php">Commandes</a>
          <a href="contact.php">Contact</a>
       </nav>
 
       <div class="icons">
-         <?php
-            // $count_cart_items = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
-            // $count_cart_items->execute([$user_id]);
-            // $total_cart_counts = $count_cart_items->rowCount();
-         ?>
          <div id="menu-btn" class="fas fa-bars"></div>
-         <a href="search_page.php"><i class="fas fa-search"></i></a>
-         <a href="cart.php"><i class="fas fa-shopping-cart"></i></a>
          <div id="user-btn" class="fas fa-user"></div>
       </div>
 

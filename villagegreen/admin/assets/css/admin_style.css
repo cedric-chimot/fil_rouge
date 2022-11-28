@@ -45,8 +45,7 @@ html{
 
 body{
    background-color: var(--light-bg);
-   /* background-color: var(--light-bg); */
-   /* padding-bottom: 10rem; */
+   padding-bottom: 10rem;
 }
 
 section{
@@ -72,7 +71,6 @@ section{
    border-radius: .5rem;
    padding:1rem 3rem;
    font-size: 1.7rem;
-   text-transform: capitalize;
    color:var(--white);
    cursor: pointer;
    text-align: center;
@@ -144,13 +142,16 @@ section{
    font-size: 4rem;
 }
 
-.vide{
-   padding: 1.5rem;
-   text-align: center;
-   border: var(--border);
+.empty{
+   padding:1.5rem;
    background-color: var(--white);
-   color: var(--red);
+   border: var(--border);
+   box-shadow: var(--box-shadow);
+   text-align: center;
+   color:var(--red);
+   border-radius: .5rem;
    font-size: 2rem;
+   text-transform: capitalize;
 }
 
 .form-container{
@@ -425,11 +426,94 @@ section{
    color:var(--orange);
 }
 
+.add-products form{
+   max-width: 50rem;
+   margin: 0 auto;   
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border:var(--border);
+   border-radius: .5rem;
+   padding:2rem;
+}
 
+.add-products form .flex{
+   /* display: flex; */
+   gap: 1.5rem;
+   margin-bottom: 1.5rem;
+   /* flex-wrap: wrap; */
+}
 
+.add-products form .flex .inputBox{
+   flex: 1 1 25rem;
+} 
 
+.add-products form .flex .inputbox span{
+   font-size: 1.7rem;
+   color:var(--light-color);
+   margin-bottom: 1.5rem;
+}
 
+.add-products form .box{
+   font-size: 1.8rem;
+   background-color: var(--light-bg);
+   border-radius: .5rem;
+   padding:1.4rem;
+   width: 100%;
+   margin-top: 1.5rem;
+}
 
+.show-products .box-container{
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 33rem);
+   gap:1.5rem;
+   justify-content: center;
+   align-items: flex-start;
+}
+
+.show-products .box-container .box{
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border-radius: .5rem;
+   border:var(--border);
+   padding:2rem;
+}
+
+.show-products .box-container .box h3{
+   margin-bottom: 1rem;
+   font-size: 2rem;
+}
+
+.show-products .box-container .box img{
+   width: 100%;
+   height: 20rem;
+   object-fit: contain;
+   margin-bottom: 1.5rem;
+}
+
+.show-products .box-container .box .libelle{
+   font-size: 2rem;
+   color:var(--black);
+   margin-bottom: 1.3rem;
+}
+
+.show-products .box-container .box .description{
+   font-size: 2rem;
+   color:var(--orange);
+   margin:.5rem 0;
+   margin-bottom: 1.3rem;
+}
+
+.show-products .box-container .box .categorie{
+   font-size: 2rem;
+   color:var(--black);
+   margin-bottom: 1.3rem;
+}
+
+.show-products .box-container .box .prix{
+   font-size: 2rem;
+   color:var(--orange);
+   margin:.5rem 0;
+}
 
 
 

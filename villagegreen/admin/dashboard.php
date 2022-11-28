@@ -64,7 +64,7 @@ if(!isset($admin_id)){
                 ?>
                 <h3><?= $number_products; ?></h3>
                 <p>Les produits</p>
-                <a href="recap_commandes.php" class="option-btn">Produits</a>
+                <a href="produits.php" class="option-btn">Produits</a>
             </div>
 
             <div class="box">

@@ -45,14 +45,14 @@ if(isset($_SESSION['user_id'])){
 
                 <h1 class="titre">Nos catégories :</h1>
                 <div class="category-list">
-                    <a href="category.php?category=guitare"><img src="assets/images/BODY/roll_over_guitare.png" alt=""></a>
-                    <a href="category.php?category=batterie"><img src="assets/images/BODY/roll_over_batterie.png" alt=""></a>
-                    <a href="category.php?category=piano"><img src="assets/images/BODY/roll_over_piano.png" alt=""></a>
-                    <a href="category.php?category=saxo"><img src="assets/images/BODY/roll_over_saxo.png" alt=""></a>
-                    <a href="category.php?category=cases"><img src="assets/images/BODY/roll_over_cases.png" alt=""></a>
-                    <a href="category.php?category=micro"><img src="assets/images/BODY/roll_over_micro.png" alt=""></a>
-                    <a href="category.php?category=access"><img src="assets/images/BODY/roll_over_access.png" alt=""></a>
-                    <a href="category.php?category=sono"><img src="assets/images/BODY/roll_over_sono.png" alt=""></a>
+                    <a href="category.php?categorie=Guitare"><img src="assets/images/BODY/roll_over_guitare.png" alt=""></a>
+                    <a href="category.php?categorie=Batterie"><img src="assets/images/BODY/roll_over_batterie.png" alt=""></a>
+                    <a href="category.php?categorie=Piano"><img src="assets/images/BODY/roll_over_piano.png" alt=""></a>
+                    <a href="category.php?categorie=Saxo"><img src="assets/images/BODY/roll_over_saxo.png" alt=""></a>
+                    <a href="category.php?categorie=Case"><img src="assets/images/BODY/roll_over_cases.png" alt=""></a>
+                    <a href="category.php?categorie=Micro"><img src="assets/images/BODY/roll_over_micro.png" alt=""></a>
+                    <a href="category.php?categorie=Accessoires"><img src="assets/images/BODY/roll_over_access.png" alt=""></a>
+                    <a href="category.php?categorie=Sono"><img src="assets/images/BODY/roll_over_sono.png" alt=""></a>
                 </div>
 
             </div>

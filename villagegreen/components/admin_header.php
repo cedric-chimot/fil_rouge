@@ -18,7 +18,7 @@
 
         <nav class="navbar">
             <a href="dashboard.php">Accueil</a>
-            <a href="products.php">Produits</a>
+            <a href="produits.php">Produits</a>
             <a href="commandes.php">Commandes</a>
             <a href="users_accounts.php">Clients</a>
             <a href="messages.php">Messages</a>

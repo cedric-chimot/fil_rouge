@@ -74,7 +74,6 @@ section{
    border-radius: .5rem;
    padding:1rem 3rem;
    font-size: 1.7rem;
-   text-transform: capitalize;
    color:var(--white);
    cursor: pointer;
    text-align: center;
@@ -226,7 +225,7 @@ section{
 }
 
 .header .flex .navbar a:hover{
-   color: var(--white);
+   color: var(--orange);
    text-decoration: underline;
 }
 
@@ -238,7 +237,7 @@ section{
 }
 
 .header .flex .icons > *:hover{
-   color: var(--white);
+   color: var(--orange);
 }
 
 .header .flex .profile{
@@ -258,7 +257,7 @@ section{
 .header .flex .profile p span{
    font-size: 2rem;
    text-align: center;
-   color: red;
+   color: var(--orange);
 }
 
 .header .flex .profile p{
@@ -270,6 +269,52 @@ section{
 
 .header .flex .profile.active{
    display: inline-block;
+}
+
+.header .header-1 .flex{
+   background-color: var(--white);
+   padding: 2rem;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   max-width: 1800px;
+   margin: 0 auto;
+}
+
+.header .header-1 .flex .share a{
+   font-size: 2.5rem;
+   margin-left: 1.5rem;
+   color: black;
+}
+
+.header1,
+.header2{
+   position: sticky;
+}
+
+.header .header-1 .flex .share a:hover{
+   color: var(--orange);
+}
+
+.header .header-1 .flex p{
+   font-size: 1.8rem;
+}
+
+.header .header-1 .flex p a{
+   color: black;
+}
+
+.header .header-1 .flex p a:hover{
+   text-decoration: underline;
+}
+
+.header .header-1 .flex .share a span.nombre{
+   /* position: absolute; */
+   font-weight: 400;
+   color: var(--orange);
+   font-size: 2.5rem;
+   height: 1.9rem;
+   width: 1.9rem;
 }
 
 #menu-btn{
@@ -311,7 +356,56 @@ section{
    padding: 1.5rem;
 }
 
+.products .box-container{
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 33rem);
+   gap:1.5rem;
+   justify-content: center;
+   align-items: flex-start;
+}
 
+.products .box-container .box{
+   position: relative;
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border-radius: .5rem;
+   border:var(--border);
+   padding:2rem;
+   overflow: hidden;
+}
+
+.products .box-container .box img{
+   height: 20rem;
+   width: 100%;
+   object-fit: contain;
+   margin-bottom: 1rem;
+}
+
+.products .box-container .box .name{
+   font-size: 2rem;
+   color:var(--black);
+}
+
+.products .box-container .box .flex{
+   display: flex;
+   align-items: center;
+   gap:1rem;
+}
+
+.products .box-container .box .flex .qty{
+   width: 7rem;
+   padding:1rem;
+   border:var(--border);
+   font-size: 1.8rem;
+   color:var(--black);
+   border-radius: .5rem;
+}
+
+.products .box-container .box .flex .price{
+   font-size: 2rem;
+   color:var(--red);
+   margin-right: auto;
+}
 
 
 

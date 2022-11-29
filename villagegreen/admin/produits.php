@@ -67,11 +67,7 @@ if(isset($_GET['delete'])){
     $delete_idproduit = $_GET['delete'];
     //lien avec la table produits
     $delete_product_image = $conn->prepare("SELECT * FROM `produits` WHERE idproduit= ?");
-    $delete_product_image->execute($delete_idproduit);
-    //association avec le dossier d'images
-    $fetch_delete_image = $delete_product_image->fetch(PDO::FETCH_ASSOC);
-    //suppression de l'image
-    unlink('assets/image/BODY/'.$fetch_delete_image['image']);
+    $delete_product_image->execute([$delete_idproduit]);
     //suppression du produit dans la table
     $delete_product = $conn->prepare("DELETE FROM `produits` WHERE idproduit = ?");
     $delete_product->execute([$delete_idproduit]);
@@ -162,7 +158,7 @@ if(isset($_GET['delete'])){
                             <div class="categorie"><span><?= $fetch_products['categorie']; ?></span></div>
                             <div class="flex-btn">
                                 <!-- bouton pour modifier et supprimer le produit -->
-                                <a href="update_produit.php?update=<?= $fetch_products['idproduit']; ?>" class="option-btn">Modifier</a>
+                                <a href="update_product.php?update=<?= $fetch_products['idproduit']; ?>" class="option-btn">Modifier</a>
                                 <a href="produits.php?delete=<?= $fetch_products['idproduit']; ?>" class="delete-btn"
                                     onclick="return confirm('Voulez-vous supprimer ce produit ?');">Supprimer</a>
                             </div>

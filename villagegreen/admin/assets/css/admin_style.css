@@ -515,7 +515,40 @@ section{
    margin:.5rem 0;
 }
 
+.update-product form{
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border-radius: .5rem;
+   border:var(--border);
+   padding:2rem;
+   max-width: 50rem;
+   margin:0 auto;
+}
 
+.update-product form .image-container{
+   margin-bottom: 2rem;
+}
+
+.update-product form .image-container .main-image img{
+   height: 20rem;
+   width: 100%;
+   object-fit: contain;
+}
+
+.update-product form .box{
+   width: 100%;
+   border-radius: .5rem;
+   padding:1.4rem;
+   font-size: 1.8rem;
+   color:var(--black);
+   background-color: var(--light-bg);
+   margin:1rem 0;
+}
+
+.update-product form span{
+   font-size: 1.7rem;
+   color:var(--light-color);
+}
 
 
 

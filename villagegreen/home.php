@@ -48,7 +48,7 @@ if(isset($_SESSION['user_id'])){
                     <a href="category.php?categorie=Guitare"><img src="assets/images/BODY/roll_over_guitare.png" alt=""></a>
                     <a href="category.php?categorie=Batterie"><img src="assets/images/BODY/roll_over_batterie.png" alt=""></a>
                     <a href="category.php?categorie=Piano"><img src="assets/images/BODY/roll_over_piano.png" alt=""></a>
-                    <a href="category.php?categorie=Saxo"><img src="assets/images/BODY/roll_over_saxo.png" alt=""></a>
+                    <a href="category.php?categorie=Trompette"><img src="assets/images/BODY/roll_over_saxo.png" alt=""></a>
                     <a href="category.php?categorie=Case"><img src="assets/images/BODY/roll_over_cases.png" alt=""></a>
                     <a href="category.php?categorie=Micro"><img src="assets/images/BODY/roll_over_micro.png" alt=""></a>
                     <a href="category.php?categorie=Accessoires"><img src="assets/images/BODY/roll_over_access.png" alt=""></a>

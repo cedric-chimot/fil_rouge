@@ -22,8 +22,8 @@
                   $total_panier_counts = $count_panier_items->rowCount();
                ?>
                <img src="assets/images/HEADER/picto_pays.png" alt="">
-               <a href="panier.php"> <i class="fas fa-shopping-cart"></i> <span class="nombre"><span>(<?= $total_panier_counts; ?>)</span></span></a>
                <a href="search_page.php"><i class="fas fa-search"></i></a>
+               <a href="panier.php"> <i class="fas fa-shopping-cart"></i> <span class="nombre">(<?= $total_panier_counts; ?>)</span></a>
             </div>
       </div>
    </div>
@@ -54,7 +54,7 @@
             $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
          ?>
          <p>Utilisateur : <span><?= $fetch_profile["prenom"] . ' ' . $fetch_profile["nom"]; ?></span></p>
-         <a href="update_user.php" class="btn">Modifier</a>
+         <a href="update_user.php" class="option-btn">Modifier</a>
          <a href="user_logout.php" class="delete-btn" onclick="return confirm('Voulez-vous vraiment vous déconnecter ?');">Se déconnecter</a> 
          <?php
             }else{

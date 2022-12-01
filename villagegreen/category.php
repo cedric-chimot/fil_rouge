@@ -1,14 +1,20 @@
 <?php
 
+//connexion à la BDD
 include 'components/connect.php';
 
+//début de la session
 session_start();
 
+//si l'ulisateur est connecté on renvoie ses identifiants sinon ça reste vide
 if (isset($_SESSION['user_id'])) {
    $user_id = $_SESSION['user_id'];
 } else {
    $user_id = '';
 };
+
+//lien de la fonction d'ajout au panier
+include 'components/add_cart.php';
 
 ?>
 
@@ -19,60 +25,73 @@ if (isset($_SESSION['user_id'])) {
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Categories</title>
+   <title>categories</title>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
 
-   <?php include 'user_header.php'; ?>
+   <!-- lien du header -->
+   <?php include 'components/user_header.php'; ?>
 
    <section class="products">
 
-      <h1 class="heading">Catégories</h1>
+      <h1 class="heading">Catégorie</h1>
 
       <div class="box-container">
+
          <?php
-         $category = $_GET["categorie"];
-         // on fait correspondre l'image dans la page d'accueil avec la catégorie dans la BDD
-         $select_products = $conn->prepare("SELECT * FROM `produits` WHERE categorie LIKE '%{$category}%'");
+         //on va chercher la catégorie dans la div sur la page d'accueil
+         $category = $_GET['categorie'];
+         //on prend la table 'products' dans la BDD et on fait le lien avec la variable 'category'
+         $select_products = $conn->prepare("SELECT * FROM `products` WHERE libelle LIKE '%{$category}%'");
          $select_products->execute();
          if ($select_products->rowCount() > 0) {
-            //à l'aide d'une boucle on associe les produits de la BDD
-            while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
+            //on créé un tableau associatif par un fetch pour renvoyer les données de la table 'products'
+            while ($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)) {
          ?>
-               <form action="" class="box">
-                  <input type="hidden" name="idproduit" value="<?php $fetch_products['idproduit']; ?>">
-                  <input type="hidden" name="libelle" value="<?php $fetch_products['libelle']; ?>">
-                  <input type="hidden" name="description" value="<?php $fetch_products['description']; ?>">
-                  <input type="hidden" name="prix" value="<?php $fetch_products['prix']; ?>">
-                  <input type="hidden" name="categorie" value="<?php $fetch_products['categorie']; ?>">
-                  <input type="hidden" name="image" value="<?php $fetch_products['image']; ?>">
-                  <img src="assets/images/BODY/<?= $fetch_products['image']; ?>" alt="">
-                  <div class="name"><?= $fetch_products['libelle']; ?></div>
+            <!-- si des produits existent on affiche le formulaire -->
+               <form action="" method="post" class="box">
+                  <input type="hidden" name="pid" value="<?= $fetch_product['id']; ?>">
+                  <input type="hidden" name="name" value="<?= $fetch_product['libelle']; ?>">
+                  <input type="hidden" name="price" value="<?= $fetch_product['prix']; ?>">
+                  <input type="hidden" name="image" value="<?= $fetch_product['image']; ?>">
+                  <img src="assets/images/BODY/<?= $fetch_product['image']; ?>" alt="">
+                  <div class="name"><?= $fetch_product['libelle']; ?></div>
                   <div class="flex">
-                     <div class="price"><?= $fetch_products['prix']; ?><span> €</span></div>
-                     <!-- on paramètre la qunatité de base à '1', sinon on renvoie false -->
-                     <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
+                     <div class="price"><span><?= $fetch_product['prix']; ?> €</span></div>
+                     <input type="number" name="qty" class="qty" min="1" max="99" value="1">
                   </div>
-                  <input type="submit" value="Ajouter au panier" class="option-btn" name="ajout_panier">
+                  <input type="submit" value="Ajouter au panier" class="btn" name="add_to_cart">
                </form>
          <?php
             }
          } else {
-            echo '<p class="empty">Aucun produit trouvé !</p>';
+            //sinon on affiche cette phrase
+            echo '<p class="empty">Aucun produits trouvés !</p>';
          }
          ?>
+
       </div>
 
    </section>
 
 
-   <?php include 'footer.php'; ?>
 
 
-   <script src="assets/js/script.js"></script>
+
+
+
+
+
+
+
+
+
+   <?php include 'components/footer.php'; ?>
+
+   <script src="js/script.js"></script>
 
 </body>
 

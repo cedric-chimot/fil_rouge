@@ -496,7 +496,8 @@ section{
    margin-bottom: 1.3rem;
 }
 
-.show-products .box-container .box .description{
+.show-products .box-container .box .description,
+.show-products .box-container .box .ref_produit{
    font-size: 2rem;
    color:var(--orange);
    margin:.5rem 0;

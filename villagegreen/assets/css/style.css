@@ -137,6 +137,23 @@ section{
    }
 }
 
+.empty{
+   padding:1.5rem;
+   background-color: var(--white);
+   border: var(--border);
+   box-shadow: var(--box-shadow);
+   text-align: center;
+   color:var(--red);
+   border-radius: .5rem;
+   font-size: 2rem;
+}
+
+.disabled{
+   pointer-events: none;
+   user-select: none;
+   opacity: .5;
+}
+
 .form-container{
    min-height: 100vh;
    display: flex;
@@ -161,7 +178,6 @@ section{
 }
 
 .form-container form h3{
-   text-transform: uppercase;
    text-align: center;
    color:var(--black);
    margin-bottom: 1rem;
@@ -287,12 +303,12 @@ section{
    color: black;
 }
 
-.header .header-1 .flex .share a span.nombre{
+.header .header-1 .flex .share a span {
    position: absolute;
-   font-weight: 200;
+   font-weight: 400;
    top: 0.2rem;
-   /* margin-right: 1rem; */
-   /* font-size: 0.2rem; */
+   color: var(--orange);
+   font-size: 2rem;
 }
 
 .header1,
@@ -364,6 +380,14 @@ section{
    padding: 1.5rem;
 }
 
+.products{
+   background-color: var(--light-color);
+}
+
+.products .heading{
+   color: black;
+}
+
 .products .box-container{
    display: grid;
    grid-template-columns: repeat(auto-fit, 33rem);
@@ -373,13 +397,12 @@ section{
 }
 
 .products .box-container .box{
-   /* position: relative; */
    background-color: var(--white);
    box-shadow: var(--box-shadow);
    border-radius: .5rem;
    border:var(--border);
    padding:2rem;
-   /* overflow: hidden; */
+   overflow: hidden;
 }
 
 .products .box-container .box img{
@@ -415,15 +438,253 @@ section{
    margin-right: auto;
 }
 
+.contact .heading{
+   color: black;
+}
 
+.contact{
+   background-color: var(--light-color);
+   text-align: center;
+   padding: 2.1rem;
+   box-shadow: var(--box-shadow);
+}
 
+.contact form{
+   padding:2rem;
+   text-align: center;
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border-radius: .5rem;
+   border:var(--border);
+   max-width: 50rem;
+   margin:0 auto;
+}
 
+.contact form h3{
+   margin-bottom: 1rem;
+   text-transform: capitalize;
+   font-size: 2.5rem;
+   color:var(--black);
+}
 
+.contact form .box{
+   margin:1rem 0;
+   width: 100%;
+   background-color: var(--light-bg);
+   padding:1.4rem;
+   font-size: 1.8rem;
+   color:var(--black);
+   border-radius: .5rem;
+}
 
+.contact form textarea{
+   height: 15rem;
+   resize: none;
+}
 
+.search-form form{
+   display: flex;
+   gap:1rem;
+}
 
+.search-form form input{
+   width: 100%;
+   border:var(--border);
+   border-radius: .5rem;
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   padding:1.4rem;
+   font-size: 1.8rem;
+   color:var(--black);
+}
 
+.search-form form button{
+   font-size: 2.5rem;
+   height: 5.5rem;
+   line-height: 5.5rem;
+   background-color: var(--orange);
+   cursor: pointer;
+   color:var(--white);
+   border-radius: .5rem;
+   width: 6rem;
+   text-align: center;
+}
 
+.search-form form button:hover{
+   background-color: var(--black);
+}
+
+.shopping-cart{
+   background-color: var(--light-color);
+}
+
+.shopping-cart .heading{
+   color: black;
+}
+
+.shopping-cart .fa-edit{
+   height: 4.5rem;
+   border-radius: .5rem;
+   background-color: var(--orange);
+   width: 5rem;
+   font-size: 2rem;
+   color:var(--white);
+   cursor: pointer;
+}
+
+.shopping-cart .fa-edit:hover{
+   background-color: var(--black);
+}
+
+.shopping-cart .sub-total{
+   margin:2rem 0;
+   font-size: 2rem;
+   color:var(--light-color);
+}
+
+.shopping-cart .sub-total span{
+   color:var(--red);
+}
+
+.cart-total{
+   max-width: 50rem;
+   margin:0 auto;
+   margin-top: 3rem;
+   background-color: var(--white);
+   border:var(--border);
+   border-radius: .5rem;;
+   padding:2rem;
+   text-align: center;
+}
+
+.cart-total p{
+   font-size: 2.5rem;
+   color:var(--black);
+   margin-bottom: 2rem;
+}
+
+.cart-total p span{
+   color:var(--red);
+}
+
+.display-orders p{
+   display: inline-block;
+   padding:1rem 2rem;
+   margin:1rem .5rem;
+   font-size: 2rem;
+   text-align: center;
+   border:var(--border);
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border-radius: .5rem;
+}
+
+.display-orders p span{
+   color:var(--red);
+}
+
+.display-orders .grand-total{
+   margin-top: 1.5rem;
+   margin-bottom: 2.5rem;
+   font-size: 2.5rem;
+   color:var(--light-color);
+}
+
+.display-orders .grand-total span{
+   color:var(--red);
+}
+
+.checkout-orders .heading{
+   color: black;
+}
+
+.checkout-orders{
+   background-color: var(--light-color);
+   text-align: center;
+   padding: 2.1rem;
+   box-shadow: var(--box-shadow);
+}
+
+.checkout-orders form{
+   padding: 1.5rem;
+   border:var(--border);
+   background-color: var(--white);
+   border-radius: .5rem;
+}
+
+.checkout-orders form h3{
+   border-radius: .5rem;
+   background-color: var(--black);
+   color:var(--white);
+   padding:1.5rem 1rem;
+   text-align: center;
+   text-transform: uppercase;
+   margin-bottom: 2rem;
+   font-size: 2.5rem;
+}
+
+.checkout-orders form .flex{
+   display: flex;
+   flex-wrap: wrap;
+   gap:1.5rem;
+   justify-content: space-between;
+}
+
+.checkout-orders form .flex .inputBox{
+   width: 49%;
+}
+
+.checkout-orders form .flex .inputBox .box{
+   width: 100%;
+   border:var(--border);
+   border-radius: .5rem;
+   font-size: 1.8rem;
+   color:var(--black);
+   padding:1.2rem 1.4rem;
+   margin:1rem 0;
+   background-color: var(--light-bg);
+}
+
+.checkout-orders form .flex .inputBox span{
+   font-size: 1.8rem;
+   color:var(--light-color);
+}
+
+.orders .heading{
+   color: black;
+}
+
+.orders{
+   background-color: var(--light-color);
+   text-align: center;
+}
+
+.orders .box-container{
+   display: flex;
+   flex-wrap: wrap;
+   gap:1.5rem;
+   align-items: flex-start;
+}
+
+.orders .box-container .box{
+   padding:1rem 2rem;
+   flex:1 1 40rem;
+   border:var(--border);
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border-radius: .5rem;
+}
+
+.orders .box-container .box p{
+   margin:.5rem 0;
+   line-height: 1.8;
+   font-size: 2rem;
+   color:var(--light-color);
+}
+
+.orders .box-container .box p span{
+   color:var(--main-color);
+}
 
 .footer{
    background-color: var(--black);

@@ -61,7 +61,7 @@ include 'components/add_cart.php';
                      <div class="price"><span><?= $fetch_product['prix']; ?> €<span></div>
                      <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
                   </div>
-                  <input type="submit" value="Ajouter au panier" class="btn" name="add_to_cart">
+                  <input type="submit" value="Ajouter au panier" class="option-btn" name="add_to_cart">
                </form>
          <?php
             }
@@ -77,7 +77,7 @@ include 'components/add_cart.php';
 
    <?php include 'components/footer.php'; ?>
 
-   <script src="js/script.js"></script>
+   <script src="assets/js/script.js"></script>
 
 </body>
 

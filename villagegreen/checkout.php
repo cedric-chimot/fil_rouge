@@ -1,9 +1,12 @@
 <?php
 
+//connexion à la BDD
 include 'components/connect.php';
 
+//début de la session
 session_start();
 
+//si l'ulisateur est connecté on renvoie ses identifiants sinon ça reste vide
 if (isset($_SESSION['user_id'])) {
    $user_id = $_SESSION['user_id'];
 } else {
@@ -11,35 +14,46 @@ if (isset($_SESSION['user_id'])) {
    header('location:user_login.php');
 };
 
+//paramétrage de la fonction de passation de commande
 if (isset($_POST['order'])) {
 
-   $name = $_POST['name'];
-   $name = filter_var($name, FILTER_SANITIZE_STRING);
-   $number = $_POST['number'];
-   $number = filter_var($number, FILTER_SANITIZE_STRING);
-   $email = $_POST['email'];
-   $email = filter_var($email, FILTER_SANITIZE_STRING);
-   $method = $_POST['method'];
-   $method = filter_var($method, FILTER_SANITIZE_STRING);
-   $address = 'flat no. ' . $_POST['flat'] . ', ' . $_POST['street'] . ', ' . $_POST['city'] . ', ' . $_POST['state'] . ', ' . $_POST['country'] . ' - ' . $_POST['pin_code'];
-   $address = filter_var($address, FILTER_SANITIZE_STRING);
-   $total_products = $_POST['total_products'];
-   $total_price = $_POST['total_price'];
+   //déclaration des variables
+   $nom = $_POST['nom'];
+   //'htmlspecialchars' : Convertit les caractères spéciaux en entités HTML
+   $nom = htmlspecialchars($nom);
+   $prenom = $_POST['prenom'];
+   $prenom = htmlspecialchars($prenom);
+   $telephone = $_POST['telephone'];
+   $telephone = htmlspecialchars($telephone);
+   $adresse = $_POST['adresse'];
+   $adresse = htmlspecialchars($adresse);
+   $cp = $_POST['cp'];
+   $cp = htmlspecialchars($cp);
+   $ville = $_POST['ville'];
+   $ville = htmlspecialchars($ville);
+   $total_produits = $_POST['total_produits'];
+   $prixTTC = $_POST['prixTTC'];
 
+   //connexion à la table 'cart' dans la BDD
    $check_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
    $check_cart->execute([$user_id]);
 
    if ($check_cart->rowCount() > 0) {
 
-      $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price) VALUES(?,?,?,?,?,?,?,?)");
-      $insert_order->execute([$user_id, $name, $number, $email, $method, $address, $total_products, $total_price]);
+      //on insert les données dans la table 'orders' dans la BDD
+      $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, nom, prenom, telephone, adresse, cp, ville, total_produits, prixTTC)
+         VALUES(?,?,?,?,?,?,?,?,?)");
+      $insert_order->execute([$user_id, $nom, $prenom, $telephone, $adresse, $cp, $ville, $total_produits, $prixTTC]);
 
+      //les articles dans le panier sont alors supprimés
       $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
       $delete_cart->execute([$user_id]);
 
-      $message[] = 'order placed successfully!';
+      //une fois la commande validée on affiche ce message
+      $message[] = 'Commande effectuée !';
    } else {
-      $message[] = 'your cart is empty';
+      //sinon on affiche celui-ci
+      $message[] = 'Votre panier est vide !';
    }
 }
 
@@ -65,83 +79,72 @@ if (isset($_POST['order'])) {
 
       <form action="" method="POST">
 
-         <h3>your orders</h3>
+         <h3>Votre panier</h3>
 
          <div class="display-orders">
             <?php
-            $grand_total = 0;
+            //paramétrage de la variable 'total'    
+            $total = 0;
+            //paramétrage de la variable 'cart_items' 
             $cart_items[] = '';
+            //connexion à la table 'cart' dans la BDD par rapport à l'ID utilisateur
             $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
             $select_cart->execute([$user_id]);
             if ($select_cart->rowCount() > 0) {
+               //association avec la table par un fetch pour récupérer les valeurs dans la table
                while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
                   $cart_items[] = $fetch_cart['libelle'] . ' (' . $fetch_cart['prix'] . ' x ' . $fetch_cart['quantite'] . ') - ';
+                  //'implode' : Rassemble les éléments d'un tableau en une chaine de caractères
                   $total_products = implode($cart_items);
-                  $grand_total += ($fetch_cart['prix'] * $fetch_cart['quantite']);
+                  $total += ($fetch_cart['prix'] * $fetch_cart['quantite']);
             ?>
-                  <p> <?= $fetch_cart['libelle']; ?> <span>(<?= '$' . $fetch_cart['prix'] . '/- x ' . $fetch_cart['quantite']; ?>)</span> </p>
+                  <p> <?= $fetch_cart['libelle']; ?> <span>(<?= $fetch_cart['prix'] . ' € x ' . $fetch_cart['quantite']; ?>)</span> </p>
             <?php
                }
             } else {
-               echo '<p class="empty">your cart is empty!</p>';
+               //si le panier est vide cette phrase s'affiche
+               echo '<p class="empty">Votre panier est vide !</p>';
             }
             ?>
-            <input type="hidden" name="total_products" value="<?= $total_products; ?>">
-            <input type="hidden" name="total_price" value="<?= $grand_total; ?>" value="">
-            <div class="grand-total">grand total : <span>$<?= $grand_total; ?>/-</span></div>
+            <!-- input type 'hidden' pour récupérer le nombre de produits et le montant du panier -->
+            <input type="hidden" name="total_produits" value="<?= $total_products; ?>">
+            <input type="hidden" name="prixTTC" value="<?= $total; ?>" value="">
+            <!-- affichage du total à payer -->
+            <div class="grand-total">Total à payer : <span><?= $total; ?> €</span></div>
          </div>
 
-         <h3>place your orders</h3>
+         <!-- formulaire de validation de commande -->
+         <h3>Passer votre commande</h3>
 
          <div class="flex">
             <div class="inputBox">
-               <span>your name :</span>
-               <input type="text" name="name" placeholder="enter your name" class="box" maxlength="20" required>
+               <span>Nom :</span>
+               <input type="text" name="nom" placeholder="entrer votre nom" class="box" maxlength="20" required>
             </div>
             <div class="inputBox">
-               <span>your number :</span>
-               <input type="number" name="number" placeholder="enter your number" class="box" min="0" max="9999999999" onkeypress="if(this.value.length == 10) return false;" required>
+               <span>Prenom :</span>
+               <input type="text" name="prenom" placeholder="entrer votre prénom" class="box" maxlength="50" required>
             </div>
             <div class="inputBox">
-               <span>your email :</span>
-               <input type="email" name="email" placeholder="enter your email" class="box" maxlength="50" required>
+               <span>Telephone</span>
+               <input type="number" name="telephone" placeholder="numéro de téléphone" class="box" min="0" max="9999999999" required>
             </div>
             <div class="inputBox">
-               <span>payment method :</span>
-               <select name="method" class="box" required>
-                  <option value="cash on delivery">cash on delivery</option>
-                  <option value="credit card">credit card</option>
-                  <option value="paytm">paytm</option>
-                  <option value="paypal">paypal</option>
-               </select>
+               <span>Addresse :</span>
+               <input type="text" name="adresse" placeholder="adresse" class="box" maxlength="50" required>
             </div>
             <div class="inputBox">
-               <span>address line 01 :</span>
-               <input type="text" name="flat" placeholder="e.g. flat number" class="box" maxlength="50" required>
+               <span>CP :</span>
+               <input type="text" name="cp" placeholder="code postal" class="box" maxlength="50" required>
             </div>
             <div class="inputBox">
-               <span>address line 02 :</span>
-               <input type="text" name="street" placeholder="e.g. street name" class="box" maxlength="50" required>
-            </div>
-            <div class="inputBox">
-               <span>city :</span>
-               <input type="text" name="city" placeholder="e.g. mumbai" class="box" maxlength="50" required>
-            </div>
-            <div class="inputBox">
-               <span>state :</span>
-               <input type="text" name="state" placeholder="e.g. maharashtra" class="box" maxlength="50" required>
-            </div>
-            <div class="inputBox">
-               <span>country :</span>
-               <input type="text" name="country" placeholder="e.g. India" class="box" maxlength="50" required>
-            </div>
-            <div class="inputBox">
-               <span>pin code :</span>
-               <input type="number" min="0" name="pin_code" placeholder="e.g. 123456" min="0" max="999999" onkeypress="if(this.value.length == 6) return false;" class="box" required>
+               <span>Ville :</span>
+               <input type="text" name="ville" placeholder="ville" class="box" maxlength="50" required>
             </div>
          </div>
 
-         <input type="submit" name="order" class="btn <?= ($grand_total > 1) ? '' : 'disabled'; ?>" value="place order">
+         <!-- le bouton de passation de commande est inactif si le panier est vide -->
+         <input type="submit" name="order" class="option-btn <?= ($total > 1) ? '' : 'disabled'; ?>" value="Passer commande">
 
       </form>
 
@@ -149,7 +152,7 @@ if (isset($_POST['order'])) {
 
    <?php include 'components/footer.php'; ?>
 
-   <script src="js/script.js"></script>
+   <script src="assets/js/script.js"></script>
 
 </body>
 

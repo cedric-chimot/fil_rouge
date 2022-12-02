@@ -445,12 +445,13 @@ section{
 
 .add-products form .flex .inputBox{
    flex: 1 1 25rem;
+   margin-bottom: 1.5rem;
 } 
 
-.add-products form .flex .inputbox span{
-   font-size: 1.7rem;
-   color:var(--light-color);
-   margin-bottom: 1.5rem;
+.add-products form .flex label.title {
+   font-size: 2rem;
+   color: black;
+   margin-bottom: 1.8rem;
 }
 
 .add-products form .box{
@@ -496,10 +497,9 @@ section{
    margin-bottom: 1.3rem;
 }
 
-.show-products .box-container .box .description,
-.show-products .box-container .box .ref_produit{
+.show-products .box-container .box .description{
    font-size: 2rem;
-   color:var(--orange);
+   color:var(--black);
    margin:.5rem 0;
    margin-bottom: 1.3rem;
 }
@@ -512,8 +512,13 @@ section{
 
 .show-products .box-container .box .prix{
    font-size: 2rem;
+   color:var(--black);
+   margin-bottom: 1.3rem;
+}
+
+.show-products .box-container .box .description span,
+.show-products .box-container .box .prix span {
    color:var(--orange);
-   margin:.5rem 0;
 }
 
 .update-product form{
@@ -541,19 +546,83 @@ section{
    border-radius: .5rem;
    padding:1.4rem;
    font-size: 1.8rem;
-   color:var(--black);
+   color:var(--light-color);
    background-color: var(--light-bg);
-   margin:1rem 0;
+   margin-bottom: 1.5rem;
+   margin-top: 1.5rem;
 }
 
 .update-product form span{
    font-size: 1.7rem;
-   color:var(--light-color);
+   color: black;
 }
 
+.contacts .box-container{
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 33rem);
+   gap:1.5rem;
+   align-items: flex-start;
+   justify-content: center;
+}
 
+.contacts .box-container .box{
+   padding:2rem;
+   padding-top: 1rem;
+   border-radius: .5rem;
+   border:var(--border);
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+}
 
+.contacts .box-container .box p{
+   line-height: 1.5;
+   font-size: 2rem;
+   color:var(--light-color);
+   margin:1rem 0;
+}
 
+.contacts .box-container .box p span{
+   color:var(--orange);
+}
+
+.orders .box-container{
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 33rem);
+   gap:1.5rem;
+   align-items: flex-start;
+   justify-content: center;
+}
+
+.orders .box-container .box{
+   padding:2rem;
+   padding-top: 1rem;
+   border-radius: .5rem;
+   border:var(--border);
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+}
+
+.orders .box-container .box p{
+   line-height: 1.5;
+   font-size: 2rem;
+   color:var(--black);
+   margin:1rem 0;
+}
+
+.orders .box-container .box p span{
+   color:var(--orange);
+}
+
+.orders .box-container .select{
+   margin-bottom: .5rem;
+   width: 100%;
+   background-color: var(--light-bg);
+   padding:1rem;
+   font-size: 1.8rem;
+   color:var(--black);
+   border-radius: .5rem;
+   border:var(--border);
+}
 
 
 @media (max-width:991px){

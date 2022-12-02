@@ -1,39 +1,49 @@
 <?php
 
+//connexion à la BDD
 include 'components/connect.php';
 
+//début de la session
 session_start();
 
+//si l'ulisateur est connecté on renvoie ses identifiants sinon ça reste vide
 if (isset($_SESSION['user_id'])) {
    $user_id = $_SESSION['user_id'];
 } else {
    $user_id = '';
 };
 
+//paramétrage de la fonction d'envoi du message
 if (isset($_POST['envoyer'])) {
 
+   //déclaration des variables
    $nom = $_POST['nom'];
+   //'htmlspecialchars' : Convertit les caractères spéciaux en entités HTML
    $nom = htmlspecialchars($nom);
    $prenom = $_POST['prenom'];
    $prenom = htmlspecialchars($prenom);
    $email = $_POST['email'];
-   $email = filter_var($email);
+   $email = htmlspecialchars($email);
    $telephone = $_POST['telephone'];
-   $telephone = filter_var($telephone);
+   $telephone = htmlspecialchars($telephone);
    $msg = $_POST['msg'];
-   $msg = filter_var($msg);
+   $msg = htmlspecialchars($msg);
 
+   //connexion à la table 'messages' dans la BDD
    $select_message = $conn->prepare("SELECT * FROM `messages` WHERE nom = ? AND prenom = ? AND email = ? AND telephone = ? AND message = ?");
    $select_message->execute([$nom, $prenom, $email, $telephone, $msg]);
 
+   //si le message a déjà été envoyé on renvoie un erreur
    if ($select_message->rowCount() > 0) {
-      $message[] = 'already sent message!';
+      $message[] = 'Message déjà envoyé !';
    } else {
 
+      //sinon on insère les données dans la table
       $insert_message = $conn->prepare("INSERT INTO `messages`(user_id, nom, prenom, email, telephone, message)
          VALUES(?,?,?,?,?,?)");
       $insert_message->execute([$user_id, $nom, $prenom, $email, $telephone, $msg]);
 
+      //et on renvoie ce message de confirmation
       $message[] = 'Message envoyé !';
    }
 }
@@ -55,8 +65,10 @@ if (isset($_POST['envoyer'])) {
 
 <body>
 
+   <!-- on inclut le header du site -->
    <?php include 'components/user_header.php'; ?>
 
+   <!-- formulaire de contact -->
    <section class="contact">
 
       <h3 class="heading">Contactez-nous !</h3>
@@ -73,9 +85,10 @@ if (isset($_POST['envoyer'])) {
 
    </section>
 
+   <!-- on inclut le footer -->
    <?php include 'components/footer.php'; ?>
 
-   <script src="js/script.js"></script>
+   <script src="assets/js/script.js"></script>
 
 </body>
 

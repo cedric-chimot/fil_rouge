@@ -25,7 +25,7 @@ include 'components/add_cart.php';
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>categories</title>
+   <title>Categories</title>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
    <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -45,7 +45,7 @@ include 'components/add_cart.php';
          //on va chercher la catégorie dans la div sur la page d'accueil
          $category = $_GET['categorie'];
          //on prend la table 'products' dans la BDD et on fait le lien avec la variable 'category'
-         $select_products = $conn->prepare("SELECT * FROM `products` WHERE libelle LIKE '%{$category}%'");
+         $select_products = $conn->prepare("SELECT * FROM `products` WHERE categorie LIKE '%{$category}%'");
          $select_products->execute();
          if ($select_products->rowCount() > 0) {
             //on créé un tableau associatif par un fetch pour renvoyer les données de la table 'products'
@@ -63,7 +63,7 @@ include 'components/add_cart.php';
                      <div class="price"><span><?= $fetch_product['prix']; ?> €</span></div>
                      <input type="number" name="qty" class="qty" min="1" max="99" value="1">
                   </div>
-                  <input type="submit" value="Ajouter au panier" class="btn" name="add_to_cart">
+                  <input type="submit" value="Ajouter au panier" class="option-btn" name="add_to_cart">
                </form>
          <?php
             }
@@ -77,21 +77,9 @@ include 'components/add_cart.php';
 
    </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
    <?php include 'components/footer.php'; ?>
 
-   <script src="js/script.js"></script>
+   <script src="assets/js/script.js"></script>
 
 </body>
 

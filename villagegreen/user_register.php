@@ -1,95 +1,94 @@
 <?php
 
+//connexion à la BDD
 include 'components/connect.php';
 
+//début de la session
 session_start();
 
-if(isset($_SESSION['user_id'])){
+//si l'ulisateur est connecté on renvoie ses identifiants sinon ça reste vide
+if (isset($_SESSION['user_id'])) {
    $user_id = $_SESSION['user_id'];
-}else{
+} else {
    $user_id = '';
 };
 
-if(isset($_POST['submit'])){
+//fonction pour soumettre le formulaire d'inscription
+if (isset($_POST['submit'])) {
 
-   $name = $_POST['name'];
-   $name = filter_var($name, FILTER_SANITIZE_STRING);
+   //déclaration des variables
+   $pseudo = $_POST['pseudo'];
+   $pseudo = htmlspecialchars($pseudo);
    $email = $_POST['email'];
-   $email = filter_var($email, FILTER_SANITIZE_STRING);
-   $pass = sha1($_POST['pass']);
-   $pass = filter_var($pass, FILTER_SANITIZE_STRING);
-   $cpass = sha1($_POST['cpass']);
-   $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
+   $email = htmlspecialchars($email);
+   //'sha1' : calcul du hachage du mot de passe
+   $password = sha1($_POST['password']);
+   $password = htmlspecialchars($password);
+   $cpassword = sha1($_POST['cpassword']);
+   $cpassword = htmlspecialchars($cpassword);
 
+   //connexion à la table 'users' dans la BDD
    $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ?");
-   $select_user->execute([$email,]);
+   $select_user->execute([$email]);
    $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
-   if($select_user->rowCount() > 0){
-      $message[] = 'email already exists!';
-   }else{
-      if($pass != $cpass){
-         $message[] = 'confirm password not matched!';
-      }else{
-         $insert_user = $conn->prepare("INSERT INTO `users`(name, email, password) VALUES(?,?,?)");
-         $insert_user->execute([$name, $email, $cpass]);
-         $message[] = 'registered successfully, login now please!';
+   if ($select_user->rowCount() > 0) {
+      //si un mail identique est présent dans la BDD ce message d'erreur s'affiche
+      $message[] = 'Cet email existe déjà';
+   } else {
+      //si les mots de passe ne correspondent pas on renvoie une erreur
+      if ($password != $cpassword) {
+         $message[] = 'Les mots de passe ne correspondent pas !';
+      } else {
+         //si tout est correct on insère les données dans la BDD
+         $insert_user = $conn->prepare("INSERT INTO `users`(pseudo, email, password) VALUES(?,?,?)");
+         $insert_user->execute([$pseudo, $email, $cpassword]);
+         $message[] = 'Inscription réussie, veuillez vous connecter !';
       }
    }
-
 }
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>register</title>
-   
-   <!-- font awesome cdn link  -->
+   <title>Inscription</title>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
-   <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
+
 <body>
-   
-<?php include 'components/user_header.php'; ?>
 
-<section class="form-container">
+   <!-- on inclue le header du site -->
+   <?php include 'components/user_header.php'; ?>
 
-   <form action="" method="post">
-      <h3>register now</h3>
-      <input type="text" name="name" required placeholder="enter your username" maxlength="20"  class="box">
-      <input type="email" name="email" required placeholder="enter your email" maxlength="50"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
-      <input type="password" name="pass" required placeholder="enter your password" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
-      <input type="password" name="cpass" required placeholder="confirm your password" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
-      <input type="submit" value="register now" class="btn" name="submit">
-      <p>already have an account?</p>
-      <a href="user_login.php" class="option-btn">login now</a>
-   </form>
+   <!-- formulaire d'inscription -->
+   <section class="form-container">
 
-</section>
+      <form action="" method="post">
+         <h3>Inscrivez-vous !</h3>
+         <input type="text" name="pseudo" required placeholder="entrer votre pseudo" maxlength="20" class="box">
+         <input type="email" name="email" required placeholder="entrer votre email" maxlength="50" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
+         <input type="password" name="password" required placeholder="entre votre mot de passe" maxlength="20" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
+         <input type="password" name="cpassword" required placeholder="confirmer le mot de passe" maxlength="20" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
+         <input type="submit" value="S'inscrire" class="btn" name="submit">
+         <p>Vous êtes déjà inscrit ?</p>
+         <a href="user_login.php" class="option-btn">Se connecter</a>
+      </form>
 
+   </section>
 
+   <!--  on inclue le footer -->
+   <?php include 'components/footer.php'; ?>
 
-
-
-
-
-
-
-
-
-
-
-<?php include 'components/footer.php'; ?>
-
-<script src="js/script.js"></script>
+   <script src="assets/js/script.js"></script>
 
 </body>
+
 </html>

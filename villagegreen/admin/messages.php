@@ -1,15 +1,20 @@
 <?php
 
+//connexion à la BDD
 include '../components/connect.php';
 
+//début de la session
 session_start();
 
+// si l'admin est connecté le dashboard s'affiche
 $admin_id = $_SESSION['admin_id'];
 
+// s'il n'est pas connecté il est renvoyé sur le formulaire de login
 if (!isset($admin_id)) {
    header('location:admin_login.php');
-};
+}
 
+//paramétrage de la fonction 'delete'
 if (isset($_GET['delete'])) {
    $delete_id = $_GET['delete'];
    $delete_message = $conn->prepare("DELETE FROM `messages` WHERE id = ?");
@@ -33,6 +38,7 @@ if (isset($_GET['delete'])) {
 
 <body>
 
+   <!-- lien du header du tableau de bord -->
    <?php include '../components/admin_header.php'; ?>
 
    <section class="contacts">
@@ -42,11 +48,14 @@ if (isset($_GET['delete'])) {
       <div class="box-container">
 
          <?php
+         // connexion à la table 'messages'
          $select_messages = $conn->prepare("SELECT * FROM `messages`");
          $select_messages->execute();
          if ($select_messages->rowCount() > 0) {
+            //par association on récupère les données de la table 'messages'
             while ($fetch_message = $select_messages->fetch(PDO::FETCH_ASSOC)) {
          ?>
+               <!-- s'il y a un message on l'affiche sur la page -->
                <div class="box">
                   <p> user id : <span><?= $fetch_message['user_id']; ?></span></p>
                   <p> Nom : <span><?= $fetch_message['nom']; ?></span></p>
@@ -59,6 +68,7 @@ if (isset($_GET['delete'])) {
          <?php
             }
          } else {
+            // s'il n'y a pas de message cette phrase s'affiche
             echo '<p class="empty">Vous n\'avez pas de messages</p>';
          }
          ?>

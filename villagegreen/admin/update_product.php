@@ -96,6 +96,7 @@ if (isset($_POST['update'])) {
       ?>
       <!-- formulaire de modification du produit pré-rempli -->
             <form action="" method="post" enctype="multipart/form-data">
+               <!-- input type 'hidden' pour lier l'ID et l'image du produit aux variables -->
                <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
                <input type="hidden" name="old_image" value="<?= $fetch_products['image']; ?>">
                <div class="image-container">

@@ -47,7 +47,7 @@ html{
 }
 
 body{
-    /* background-color: var(--light-color); */
+    background-color: var(--light-color);
     padding-bottom: 10rem; 
 }
 
@@ -485,15 +485,16 @@ section{
 .search-form form{
    display: flex;
    gap:1rem;
+   margin-bottom: 1.5rem;
 }
 
 .search-form form input{
    width: 100%;
-   border:var(--border);
+   border: var(--border);
    border-radius: .5rem;
    background-color: var(--white);
    box-shadow: var(--box-shadow);
-   padding:1.4rem;
+   padding: 1.4rem;
    font-size: 1.8rem;
    color:var(--black);
 }
@@ -559,7 +560,7 @@ section{
 
 .cart-total p{
    font-size: 2.5rem;
-   color:var(--black);
+   color: black;
    margin-bottom: 2rem;
 }
 
@@ -569,11 +570,11 @@ section{
 
 .display-orders p{
    display: inline-block;
-   padding:1rem 2rem;
-   margin:1rem .5rem;
+   padding: 1rem 2rem;
+   margin: 1rem .5rem;
    font-size: 2rem;
    text-align: center;
-   border:var(--border);
+   border: var(--border);
    background-color: var(--white);
    box-shadow: var(--box-shadow);
    border-radius: .5rem;
@@ -587,7 +588,7 @@ section{
    margin-top: 1.5rem;
    margin-bottom: 2.5rem;
    font-size: 2.5rem;
-   color:var(--light-color);
+   color: black;
 }
 
 .display-orders .grand-total span{
@@ -599,10 +600,10 @@ section{
 }
 
 .checkout-orders{
-   background-color: var(--light-color);
    text-align: center;
-   padding: 2.1rem;
-   box-shadow: var(--box-shadow);
+   padding: 2.2rem;
+   /* box-shadow: var(--box-shadow); */
+   max-width: 75%;
 }
 
 .checkout-orders form{
@@ -631,7 +632,7 @@ section{
 }
 
 .checkout-orders form .flex .inputBox{
-   width: 49%;
+   width: 100%;
 }
 
 .checkout-orders form .flex .inputBox .box{
@@ -647,7 +648,7 @@ section{
 
 .checkout-orders form .flex .inputBox span{
    font-size: 1.8rem;
-   color:var(--light-color);
+   color: black;
 }
 
 .orders .heading{

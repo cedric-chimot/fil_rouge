@@ -50,6 +50,7 @@ if (isset($_POST['submit'])) {
 <body>
 
    <?php
+   //fonction d'affichage des différents messages(login, ajout au panier, informations diverses etc...)
    if (isset($message)) {
       foreach ($message as $message) {
          echo '
@@ -62,6 +63,7 @@ if (isset($_POST['submit'])) {
    }
    ?>
 
+   <!-- formulaire de login -->
    <section class="form-container">
 
       <form action="" method="post">

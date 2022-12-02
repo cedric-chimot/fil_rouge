@@ -20,6 +20,7 @@ if (isset($_POST['add_product'])) {
 
    //déclaration des variables
    $libelle = $_POST['libelle'];
+   //'htmlspecialchars' : Convertit les caractères spéciaux en entités HTML
    $libelle = htmlspecialchars($libelle);
    $details = $_POST['details'];
    $details = htmlspecialchars($details);
@@ -44,16 +45,19 @@ if (isset($_POST['add_product'])) {
    if ($select_produits->rowCount() > 0) {
       $message[] = 'Ce produit existe déjà !';
    } else {
-      //sinon on insert les données dans la table produits dans la BDD
+      //sinon on insert les données dans la table 'products' dans la BDD
       $insert_produits = $conn->prepare("INSERT INTO `products`(libelle, details, prix, image, categorie) VALUES(?,?,?,?,?)");
       $insert_produits->execute([$libelle, $details, $prix, $image, $categorie]);
 
       //vérification de la taille de l'image
       if ($insert_produits) {
          if ($image_size > 2000000) {
+            //si l'image est trop grande on affiche ce message
             $message[] = 'La taille de l\'image est trop grande';
          } else {
+            //déplacement de l'image du dossier temporaire au dossier images
             move_uploaded_file($image_tmp_name, $image_folder);
+            //message de confirmation d'ajout du produit
             $message[] = 'Produit ajouté avec succès !';
          }
       }
@@ -64,7 +68,7 @@ if (isset($_POST['add_product'])) {
 if (isset($_GET['delete'])) {
    //association avec le bouton de suppression
    $delete_idproduit = $_GET['delete'];
-   //lien avec la table produits
+   //lien avec la table produits par rapport à l'ID
    $delete_product_image = $conn->prepare("SELECT * FROM `products` WHERE id= ?");
    $delete_product_image->execute([$delete_idproduit]);
    //suppression du produit dans la table
@@ -144,7 +148,7 @@ if (isset($_GET['delete'])) {
          //on va chercher la table produits
          $select_products = $conn->prepare("SELECT * FROM `products`");
          $select_products->execute();
-         //par association on récupère les données de la table produits
+         //par association on récupère les données de la table 'products'
          if ($select_products->rowCount() > 0) {
             while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
          ?>

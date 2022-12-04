@@ -56,14 +56,15 @@ if (isset($_GET['delete'])) {
 
    <section class="orders">
 
-      <h1 class="heading">Toutes les commandes</h1>
+      <h1 class="heading">Commandes en attente</h1>
 
       <div class="box-container">
 
          <?php
          //connexion à la table 'orders' dans la BDD
-         $select_orders = $conn->prepare("SELECT * FROM `orders`");
-         $select_orders->execute();
+         $select_orders = $conn->prepare("SELECT * FROM `orders` WHERE statut_commande = ?");
+         //affichage des commandes en attente de paiement
+         $select_orders->execute((['en attente']));
          if ($select_orders->rowCount() > 0) {
             //association par un fetch pour récupérer les données de la table 'orders' dans la BDD
             while ($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)) {

@@ -60,7 +60,7 @@ if (isset($_GET['delete'])) {
          $select_accounts = $conn->prepare("SELECT * FROM `users`");
          $select_accounts->execute();
          if ($select_accounts->rowCount() > 0) {
-            // créatiion par un fetch d'un tableau associatif pour récupérer les données de la table 'users'
+            // création par un fetch d'un tableau associatif pour récupérer les données de la table 'users'
             while ($fetch_accounts = $select_accounts->fetch(PDO::FETCH_ASSOC)) {
          ?>
                <div class="box">

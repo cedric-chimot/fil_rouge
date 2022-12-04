@@ -154,6 +154,10 @@ section{
    opacity: .5;
 }
 
+.form-container form#register small{
+   font-size: 1.2rem;
+}
+
 .form-container{
    min-height: 100vh;
    display: flex;

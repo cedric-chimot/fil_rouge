@@ -1,19 +1,26 @@
 <?php
 
+//connexion à la BDD
 include '../components/connect.php';
 
+//début de la session
 session_start();
 
+// si l'admin est connecté le dashboard s'affiche
 $admin_id = $_SESSION['admin_id'];
 
-if(!isset($admin_id)){
+// s'il n'est pas connecté il est renvoyé sur le formulaire de login
+if (!isset($admin_id)) {
    header('location:admin_login.php');
 }
 
-if(isset($_GET['delete'])){
+//paramétrage de la fonction 'delete'
+if (isset($_GET['delete'])) {
    $delete_id = $_GET['delete'];
+   //on supprime le compte d'admin par rapport à l'ID
    $delete_admins = $conn->prepare("DELETE FROM `admins` WHERE id = ?");
    $delete_admins->execute([$delete_id]);
+   //on renvoie ensuite vers la page des comptes d'administrateur
    header('location:admin_accounts.php');
 }
 
@@ -21,73 +28,69 @@ if(isset($_GET['delete'])){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>admin accounts</title>
-
+   <title>Compte d'admin</title>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
-   <link rel="stylesheet" href="../css/admin_style.css">
-
+   <link rel="stylesheet" href="assets/css/admin_style.css">
 </head>
+
 <body>
 
-<?php include '../components/admin_header.php'; ?>
+   <?php include '../components/admin_header.php'; ?>
 
-<section class="accounts">
+   <section class="accounts">
 
-   <h1 class="heading">admin accounts</h1>
+      <h1 class="heading">Compte d'administrateur</h1>
 
-   <div class="box-container">
+      <div class="box-container">
 
-   <div class="box">
-      <p>add new admin</p>
-      <a href="register_admin.php" class="option-btn">register admin</a>
-   </div>
+         <div class="box">
+            <p>Ajouter un admin</p>
+            <a href="register_admin.php" class="option-btn">S'inscrire</a>
+         </div>
 
-   <?php
-      $select_accounts = $conn->prepare("SELECT * FROM `admins`");
-      $select_accounts->execute();
-      if($select_accounts->rowCount() > 0){
-         while($fetch_accounts = $select_accounts->fetch(PDO::FETCH_ASSOC)){   
-   ?>
-   <div class="box">
-      <p> admin id : <span><?= $fetch_accounts['id']; ?></span> </p>
-      <p> admin name : <span><?= $fetch_accounts['name']; ?></span> </p>
-      <div class="flex-btn">
-         <a href="admin_accounts.php?delete=<?= $fetch_accounts['id']; ?>" onclick="return confirm('delete this account?')" class="delete-btn">delete</a>
          <?php
-            if($fetch_accounts['id'] == $admin_id){
-               echo '<a href="update_profile.php" class="option-btn">update</a>';
-            }
+         //connexion à la table 'admins' dans la BDD
+         $select_accounts = $conn->prepare("SELECT * FROM `admins`");
+         $select_accounts->execute();
+         if ($select_accounts->rowCount() > 0) {
+            // création par un fetch d'un tableau associatif pour récupérer les données de la table 'users'
+            while ($fetch_accounts = $select_accounts->fetch(PDO::FETCH_ASSOC)) {
          ?>
-      </div>
-   </div>
-   <?php
+               <div class="box">
+                  <!-- on retourne l'ID et le nom des admins -->
+                  <p>  ID admin : <span><?= $fetch_accounts['id']; ?></span> </p>
+                  <p> Nom : <span><?= $fetch_accounts['nom']; ?></span> </p>
+                  <div class="flex-btn">
+                     <!-- bouton de suppresion du compte d'administrateur -->
+                     <a href="admin_accounts.php?delete=<?= $fetch_accounts['id']; ?>" onclick="return confirm('Supprimer ce compte ?')"
+                        class="delete-btn">Supprimer</a>
+                     <?php
+                     //l'admin connecté a accès au formulaire de modification de son compte
+                     if ($fetch_accounts['id'] == $admin_id) {
+                        echo '<a href="update_profile.php" class="option-btn">Modifier</a>';
+                     }
+                     ?>
+                  </div>
+               </div>
+         <?php
+            }
+         } else {
+            // s'il n'y a aucun admin inscrit on renvoie ce message
+            echo '<p class="empty">Aucun compte d\'administrateur</p>';
          }
-      }else{
-         echo '<p class="empty">no accounts available!</p>';
-      }
-   ?>
+         ?>
 
-   </div>
+      </div>
 
-</section>
+   </section>
 
+   <script src="assets/js/admin_script.js"></script>
 
-
-
-
-
-
-
-
-
-
-
-<script src="../js/admin_script.js"></script>
-   
 </body>
+
 </html>

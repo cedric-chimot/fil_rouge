@@ -1,84 +1,89 @@
 <?php
 
+//connexion à la BDD
 include '../components/connect.php';
 
+//début de la session
 session_start();
 
+// si l'admin est connecté le dashboard s'affiche
 $admin_id = $_SESSION['admin_id'];
 
-if(!isset($admin_id)){
+// s'il n'est pas connecté il est renvoyé sur le formulaire de login
+if (!isset($admin_id)) {
    header('location:admin_login.php');
 }
 
-if(isset($_POST['submit'])){
+//paramétrage de la fonction d'enregistrement
+if (isset($_POST['submit'])) {
 
+   //déclaration des variables
    $name = $_POST['name'];
-   $name = filter_var($name, FILTER_SANITIZE_STRING);
+   // 'htmlspecialchars' : Convertit les caractères spéciaux en entités HTML
+   $name = htmlspecialchars($name);
+   //'sha1' : hachage du mot de passe
    $pass = sha1($_POST['pass']);
-   $pass = filter_var($pass, FILTER_SANITIZE_STRING);
+   $pass = htmlspecialchars($pass);
    $cpass = sha1($_POST['cpass']);
-   $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
+   $cpass = htmlspecialchars($cpass);
 
-   $select_admin = $conn->prepare("SELECT * FROM `admins` WHERE name = ?");
+   //connexion à la table 'admins'
+   $select_admin = $conn->prepare("SELECT * FROM `admins` WHERE nom = ?");
    $select_admin->execute([$name]);
 
-   if($select_admin->rowCount() > 0){
-      $message[] = 'username already exist!';
-   }else{
-      if($pass != $cpass){
-         $message[] = 'confirm password not matched!';
-      }else{
-         $insert_admin = $conn->prepare("INSERT INTO `admins`(name, password) VALUES(?,?)");
+   if ($select_admin->rowCount() > 0) {
+      //si le nom de l'admin existe déjà on renvoie ce message
+      $message[] = 'Cet admin existe déjà !';
+   } else {
+      if ($pass != $cpass) {
+         //si la vérification de mot de passe échoue on revoie ce message
+         $message[] = 'Les mots de passe ne correspondent pas !';
+      } else {
+         //sinon on insère les données dans la table 'admins'
+         $insert_admin = $conn->prepare("INSERT INTO `admins`(nom, password) VALUES(?,?)");
          $insert_admin->execute([$name, $cpass]);
-         $message[] = 'new admin registered successfully!';
+         $message[] = 'Nouvel admin enregistré !';
       }
    }
-
 }
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>register admin</title>
-
+   <title>Inscription admin</title>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
-   <link rel="stylesheet" href="../css/admin_style.css">
-
+   <link rel="stylesheet" href="assets/css/admin_style.css">
 </head>
+
 <body>
 
-<?php include '../components/admin_header.php'; ?>
+   <?php include '../components/admin_header.php'; ?>
 
-<section class="form-container">
+   <!-- formulaire d'enregistrement -->
+   <section class="form-container">
 
-   <form action="" method="post">
-      <h3>register now</h3>
-      <input type="text" name="name" required placeholder="enter your username" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
-      <input type="password" name="pass" required placeholder="enter your password" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
-      <input type="password" name="cpass" required placeholder="confirm your password" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
-      <input type="submit" value="register now" class="btn" name="submit">
-   </form>
+      <form action="" method="post">
+         <h3>Inscription</h3>
+         <!-- 'this.value.replace(/\s/g, '')' : regex pour supprimer les espaces dans le champs -->
+         <input type="text" name="name" required placeholder="entrer votre nom" maxlength="20"
+            class="box" oninput="this.value = this.value.replace(/\s/g, '')">
+         <input type="password" name="pass" required placeholder="entrer votre mot de passe" maxlength="20"
+            class="box" oninput="this.value = this.value.replace(/\s/g, '')">
+         <input type="password" name="cpass" required placeholder="confirmer votre mot de passe" maxlength="20"
+            class="box" oninput="this.value = this.value.replace(/\s/g, '')">
+         <input type="submit" value="S'inscrire" class="option-btn" name="submit">
+      </form>
 
-</section>
+   </section>
 
+   <script src="assets/js/admin_script.js"></script>
 
-
-
-
-
-
-
-
-
-
-
-<script src="../js/admin_script.js"></script>
-   
 </body>
+
 </html>

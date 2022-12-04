@@ -76,17 +76,14 @@ if (!isset($admin_id)) {
             <!-- lien vers toutes les commandes effectuées sur le site -->
             <div class="box">
                 <?php
-                $total_commandes = 0;
-                $select_commandes = $conn->prepare("SELECT * FROM `orders`");
-                $select_commandes->execute();
-                while ($fetch_commandes = $select_commandes->fetch(PDO::FETCH_ASSOC)) {
-                    $total_commandes += $fetch_commandes['prixTTC'];
-                }
+                $select_orders = $conn->prepare("SELECT * FROM `orders`");
+                $select_orders->execute();
+                $number_orders = $select_orders->rowCount();
                 ?>
-                <!-- on affiche le nombre total de commandes effectuées -->
-                <h3><?= $total_commandes; ?><span> €</span></h3>
-                <p>Les commandes</p>
-                <a href="placed_orders.php" class="option-btn">Commandes</a>
+                <!-- on affiche le nombre total de commandes effectuées sur le site -->
+                <h3><?= $number_orders; ?></h3>
+                <p>Commandes effectuées</p>
+                <a href="placed_orders.php" class="option-btn">Les commandes</a>
             </div>
 
             <!-- lien vers toutes les commandes en attente de paiement -->
@@ -103,35 +100,55 @@ if (!isset($admin_id)) {
                 <!-- on affiche montant total des commandes à payer -->
                 <h3><?= $total_dues; ?><span> €</span></h3>
                 <p>Commandes dues</p>
-                <a href="commandes_dues.php" class="option-btn">Dues</a>
+                <a href="orders_attente.php" class="option-btn">Dues</a>
             </div>
 
-            <!-- lien vers toutes les commandes expédiées -->
+            <!-- lien vers toutes les commandes terminées -->
             <div class="box">
                 <?php
-                $select_expediees = $conn->prepare("SELECT * FROM `orders`
+                $total_terminee = 0;
+                $select_terminee = $conn->prepare("SELECT * FROM `orders`
                         WHERE statut_commande = ?");
-                $select_expediees->execute((['expediees']));
-                $number_expediees = $select_expediees->rowCount();
+                $select_terminee->execute((['terminee']));
+                while ($fetch_terminee = $select_terminee->fetch(PDO::FETCH_ASSOC)) {
+                    $total_terminee += $fetch_terminee['prixTTC'];
+                }
                 ?>
-                <!-- on affiche le nombre total de commandes expédiées -->
-                <h3><?= $number_expediees; ?></h3>
-                <p>Commandes expédiées</p>
-                <a href="commandes_expediees.php" class="option-btn">Expédiées</a>
+                <!-- on affiche montant total des commandes terminées -->
+                <h3><?= $total_terminee; ?><span> €</span></h3>
+                <p>Commandes terminées</p>
+                <a href="completed_orders.php" class="option-btn">Terminées</a>
+            </div>
+
+            <!-- lien vers toutes les commandes impayées -->
+            <div class="box">
+                <?php
+                $total_retard = 0;
+                $select_retard = $conn->prepare("SELECT * FROM `orders`
+                        WHERE statut_commande = ?");
+                $select_retard->execute((['retard']));
+                while ($fetch_retard = $select_retard->fetch(PDO::FETCH_ASSOC)) {
+                    $total_retard += $fetch_retard['prixTTC'];
+                }
+                ?>
+                <!-- on affiche montant total des commandes impayées -->
+                <h3><?= $total_retard; ?><span> €</span></h3>
+                <p>Commandes impayées</p>
+                <a href="uncompleted_orders.php" class="option-btn">Impayées</a>
             </div>
 
             <!-- lien vers toutes les commandes annulées -->
             <div class="box">
                 <?php
-                $select_annulees = $conn->prepare("SELECT * FROM `orders`
-                        WHERE statut_commande = ?");
-                $select_annulees->execute((['annulees']));
-                $number_annulees = $select_annulees->rowCount();
+                $select_orders = $conn->prepare("SELECT * FROM `orders`
+                    WHERE statut_commande = ?");
+                $select_orders->execute((['annulee']));
+                $number_orders = $select_orders->rowCount();
                 ?>
                 <!-- on affiche le nombre total de commandes annulées -->
-                <h3><?= $number_annulees; ?></h3>
+                <h3><?= $number_orders; ?></h3>
                 <p>Commandes annulées</p>
-                <a href="commandes_annulees.php" class="option-btn">Annulées</a>
+                <a href="canceled_orders.php" class="option-btn">Annulées</a>
             </div>
         </div>
 

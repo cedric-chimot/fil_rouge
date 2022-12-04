@@ -80,7 +80,7 @@ if (isset($_POST['envoyer'])) {
          <input type="email" name="email" placeholder="entrer votre email" required maxlength="50" class="box">
          <input type="number" name="telephone" min="0" max="9999999999" placeholder="enter votre numéro de téléphone" required class="box">
          <textarea name="msg" class="box" placeholder="entrer votre message" cols="30" rows="10"></textarea>
-         <input type="submit" value="Envoyer" name="envoyer" class="btn">
+         <input type="submit" value="Envoyer" name="envoyer" class="option-btn">
       </form>
 
    </section>

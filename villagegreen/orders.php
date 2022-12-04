@@ -58,7 +58,7 @@ if (isset($_SESSION['user_id'])) {
                      <!-- suivant le statut de la commande la couleur change -->
                      <p>Statut de la commande : <span
                         style="color:<?php if ($fetch_orders['statut_commande'] == 'en attente') {
-                                                echo 'bleu';
+                                                echo 'blue';
                                              } elseif($fetch_orders['statut_commande'] == 'expediee') {
                                                 echo 'green';
                                              }elseif($fetch_orders['statut_commande'] == 'annulee'){

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : dim. 04 déc. 2022 à 17:57
+-- Généré le : mer. 07 déc. 2022 à 09:45
 -- Version du serveur : 10.4.25-MariaDB
 -- Version de PHP : 8.1.10
 
@@ -56,33 +56,6 @@ CREATE TABLE `cart` (
   `quantite` int(10) NOT NULL,
   `image` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `inscrire`
---
-
-CREATE TABLE `inscrire` (
-  `id` int(11) NOT NULL,
-  `admin_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `role` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `inscrire`
---
-
-INSERT INTO `inscrire` (`id`, `admin_id`, `user_id`, `role`) VALUES
-(1, 1, NULL, 'Admin'),
-(2, NULL, 1, 'User'),
-(3, NULL, 2, 'User'),
-(4, 2, NULL, 'Admin'),
-(5, NULL, 3, 'User'),
-(6, NULL, 4, 'User'),
-(7, NULL, 5, 'User'),
-(8, NULL, 6, 'User');
 
 -- --------------------------------------------------------
 
@@ -173,8 +146,34 @@ INSERT INTO `products` (`id`, `libelle`, `details`, `prix`, `image`, `categorie`
 (7, 'Sono', 'Sono', 599, 'sono.png', 'Sono'),
 (8, 'Case', 'Case', 310, 'cases.png', 'Case'),
 (9, 'Startone SAS-75 Alto', 'Saxo', 620, 'top_ventes_saxo.png', 'Instrument à vent'),
-(10, 'Harley Benton D-120CE BK', 'Guitare', 79, 'top_ventes_guitare.png', 'Guitare'),
+(10, 'Harley Benton D-120CE BK', 'Guitare', 75, 'top_ventes_guitare.png', 'Guitare'),
 (11, 'Kawai ES-8 B', 'Piano', 1256, 'top_ventes_piano.png', 'Piano');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `register`
+--
+
+CREATE TABLE `register` (
+  `user_id` int(11) DEFAULT NULL,
+  `admin_id` int(11) DEFAULT NULL,
+  `role` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `register`
+--
+
+INSERT INTO `register` (`user_id`, `admin_id`, `role`) VALUES
+(NULL, 1, 'admin'),
+(NULL, 2, 'admin'),
+(1, NULL, 'client'),
+(2, NULL, 'client'),
+(3, NULL, 'client'),
+(4, NULL, 'client'),
+(5, NULL, 'client'),
+(6, NULL, 'client');
 
 -- --------------------------------------------------------
 
@@ -220,14 +219,6 @@ ALTER TABLE `cart`
   ADD KEY `panier_ibfk_1` (`user_id`);
 
 --
--- Index pour la table `inscrire`
---
-ALTER TABLE `inscrire`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `inscrire_ibfk_1` (`admin_id`),
-  ADD KEY `inscrire_ibfk_2` (`user_id`);
-
---
 -- Index pour la table `messages`
 --
 ALTER TABLE `messages`
@@ -246,6 +237,13 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `register`
+--
+ALTER TABLE `register`
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `admin_id` (`admin_id`);
 
 --
 -- Index pour la table `users`
@@ -267,13 +265,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT pour la table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
-
---
--- AUTO_INCREMENT pour la table `inscrire`
---
-ALTER TABLE `inscrire`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT pour la table `messages`
@@ -311,13 +303,6 @@ ALTER TABLE `cart`
   ADD CONSTRAINT `panier_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `products` (`id`);
 
 --
--- Contraintes pour la table `inscrire`
---
-ALTER TABLE `inscrire`
-  ADD CONSTRAINT `inscrire_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`),
-  ADD CONSTRAINT `inscrire_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
 -- Contraintes pour la table `messages`
 --
 ALTER TABLE `messages`
@@ -328,6 +313,13 @@ ALTER TABLE `messages`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Contraintes pour la table `register`
+--
+ALTER TABLE `register`
+  ADD CONSTRAINT `register_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `register_ibfk_2` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

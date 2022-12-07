@@ -72,11 +72,10 @@ if (isset($_POST['submit'])) {
 
       <form action="" method="post" id="register">
          <h3>Inscrivez-vous !</h3>
-         <input type="text" name="pseudo" required placeholder="entrer votre pseudo" maxlength="20" class="box">
+         <!-- 'this.value.replace(/\s/g, '')' : regex pour supprimer les espaces dans le champs -->
+         <input type="text" name="pseudo" required placeholder="entrer votre pseudo" maxlength="20" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
          <input type="email" name="email" required placeholder="entrer votre email" maxlength="50" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
-         <small></small>
          <input type="password" name="password" required placeholder="entre votre mot de passe" maxlength="20" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
-         <small></small>
          <input type="password" name="cpassword" required placeholder="confirmer le mot de passe" maxlength="20" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
          <input type="submit" value="S'inscrire" class="btn" name="submit">
          <p>Vous êtes déjà inscrit ?</p>

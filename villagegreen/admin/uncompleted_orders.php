@@ -105,7 +105,7 @@ if (isset($_GET['delete'])) {
                      <!-- boutons de modification et suppression des commandes -->
                      <div class="flex-btn">
                         <input type="submit" value="Modifier" class="option-btn" name="update_statut">
-                        <a href="placed_orders.php?delete=<?= $fetch_orders['id']; ?>" class="delete-btn" onclick="return confirm('delete this order?');">Supprimer</a>
+                        <a href="placed_orders.php?delete=<?= $fetch_orders['id']; ?>" class="delete-btn" onclick="return confirm('Supprimer cette commande ?');">Supprimer</a>
                      </div>
                   </form>
                </div>

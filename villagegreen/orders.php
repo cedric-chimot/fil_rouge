@@ -49,21 +49,25 @@ if (isset($_SESSION['user_id'])) {
                //association par un fetch pour retourner les données de la table 'orders'
                while ($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)) {
          ?>
-            <!-- si une commande existe on l'affiche -->
+                  <!-- si une commande existe on l'affiche -->
                   <div class="box">
                      <p>Numéro de commande : <span><?= $fetch_orders['id']; ?></span></p>
                      <p>Date de la commande : <span><?= $fetch_orders['date_commande']; ?></span></p>
                      <p>Votre commande : <span><?= $fetch_orders['total_produits']; ?></span></p>
                      <p>Montant total : <span><?= $fetch_orders['prixTTC']; ?> €</span></p>
                      <!-- suivant le statut de la commande la couleur change -->
-                     <p>Statut de la commande : <span
-                        style="color:<?php if ($fetch_orders['statut_commande'] == 'en attente') {
+                     <p>Statut de la commande :
+                        <span style="color:<?php if ($fetch_orders['statut_commande'] == 'en attente') {
                                                 echo 'blue';
-                                             } elseif($fetch_orders['statut_commande'] == 'expediee') {
+                                             } elseif ($fetch_orders['statut_commande'] == 'terminee') {
                                                 echo 'green';
-                                             }elseif($fetch_orders['statut_commande'] == 'annulee'){
+                                             } elseif ($fetch_orders['statut_commande'] == 'retard') {
+                                                echo 'violet';
+                                             } elseif ($fetch_orders['statut_commande'] == 'annulee') {
                                                 echo 'red';
-                                             }; ?>"><?= $fetch_orders['statut_commande']; ?></span> </p>
+                                             }; ?>"><?= $fetch_orders['statut_commande']; ?>
+                        </span>
+                     </p>
                   </div>
          <?php
                }

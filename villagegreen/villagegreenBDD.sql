@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 07 déc. 2022 à 09:45
+-- Généré le : sam. 24 déc. 2022 à 17:15
 -- Version du serveur : 10.4.25-MariaDB
 -- Version de PHP : 8.1.10
 
@@ -56,6 +56,13 @@ CREATE TABLE `cart` (
   `quantite` int(10) NOT NULL,
   `image` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `cart`
+--
+
+INSERT INTO `cart` (`id`, `user_id`, `pid`, `libelle`, `prix`, `quantite`, `image`) VALUES
+(47, 1, 2, 'Batterie', 849, 1, 'batterie.png');
 
 -- --------------------------------------------------------
 
@@ -178,6 +185,29 @@ INSERT INTO `register` (`user_id`, `admin_id`, `role`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `num_order` int(11) DEFAULT NULL,
+  `client` varchar(50) NOT NULL,
+  `note` int(11) NOT NULL,
+  `avis` varchar(500) NOT NULL,
+  `image` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `user_id`, `num_order`, `client`, `note`, `avis`, `image`) VALUES
+(1, 1, 4, 'Cédric Chimot', 5, 'Bonne commande merci pour tout, je repasserai. A bientôt :)', 'cedric_samus avatar.png');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `users`
 --
 
@@ -246,6 +276,14 @@ ALTER TABLE `register`
   ADD KEY `admin_id` (`admin_id`);
 
 --
+-- Index pour la table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `num_order` (`num_order`);
+
+--
 -- Index pour la table `users`
 --
 ALTER TABLE `users`
@@ -265,7 +303,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT pour la table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT pour la table `messages`
@@ -284,6 +322,12 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `products`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT pour la table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `users`
@@ -320,6 +364,13 @@ ALTER TABLE `orders`
 ALTER TABLE `register`
   ADD CONSTRAINT `register_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `register_ibfk_2` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`);
+
+--
+-- Contraintes pour la table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`num_order`) REFERENCES `orders` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -41,6 +41,7 @@
 
       <nav class="navbar">
          <a href="home.php">Accueil</a>
+         <a href="about.php">A propos</a>
          <a href="shop.php">Produits</a>
          <a href="orders.php">Commandes</a>
          <a href="contact.php">Contact</a>

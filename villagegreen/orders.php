@@ -12,6 +12,7 @@ if (isset($_SESSION['user_id'])) {
 } else {
    $user_id = '';
 };
+
 ?>
 
 <!DOCTYPE html>
@@ -68,6 +69,7 @@ if (isset($_SESSION['user_id'])) {
                                              }; ?>"><?= $fetch_orders['statut_commande']; ?>
                         </span>
                      </p>
+                     <a href="reviews.php" class="option-btn">Donner votre avis</a>
                   </div>
          <?php
                }

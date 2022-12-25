@@ -69,7 +69,14 @@ if (isset($_SESSION['user_id'])) {
                                              }; ?>"><?= $fetch_orders['statut_commande']; ?>
                         </span>
                      </p>
-                     <a href="reviews.php" class="option-btn">Donner votre avis</a>
+                     <!-- le bouton d'accès aux commentaires est inactif si le statut de la commande est autre que 'terminée' -->
+                     <a href="reviews.php" class="option-btn
+                        <?= ($fetch_orders['statut_commande'] == 'terminee')?'':'disabled'; ?>
+                        <?= ($fetch_orders['statut_commande'] == 'en attente' ||
+                              $fetch_orders['statut_commande'] == 'annulee' ||
+                              $fetch_orders['statut_commande'] == 'retard')?'':'enabled'; ?>">
+                        Donner votre avis
+                     </a>
                   </div>
          <?php
                }

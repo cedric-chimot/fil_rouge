@@ -35,6 +35,99 @@ if (isset($_SESSION['user_id'])) {
 
     <section class="about">
 
+        <h3 class="heading">A propos</h3>
+
+        <div class="flex">
+
+            <div class="image">
+                <img src="#"alt="">
+            </div>
+
+            <div class="content">
+                <h3>Pourquoi nous faire confiance ?</h3>
+                <p>
+                </p>
+                <p></p>
+                <a href="contact.php" class="option-btn">Contactez-nous</a>
+            </div>
+
+        </div>
+
+        <section class="reviews">
+        <!-- box recommandations clients -->
+            <h3 class="heading">Derniers commentaires clients</h3>
+
+            <div class="box-container">
+
+                <?php
+                //requête pour afficher les données de la table 'reviews' par rapport à la note et limité à 6 sur la page
+                $select_reviews = $conn->prepare('SELECT * FROM reviews ORDER BY id LIMIT 6');
+                $select_reviews->execute();
+                // Retourne le nombre de lignes affectées par le dernier appel à la fonction
+                if ($select_reviews->rowCount() > 0) {
+                    // Récupère la ligne suivante d'un ensemble de résultats PDO
+                    while ($fetch_reviews = $select_reviews->fetch(PDO::FETCH_ASSOC)) {
+                ?>
+                        <!-- S'il existe un avis, on affiche les informations correspondantes -->
+                        <div class="box">
+                            <img src="assets/images/avatar/<?php echo $fetch_reviews['image']; ?>" alt=""><br><br>
+                            <span class="row">Client : </span>
+                            <div class="client"><?php echo $fetch_reviews['client']; ?></div>
+                            <span class="row">Note : </span>
+                            <div class="note">
+                                <?php if ($fetch_reviews['note'] == 0) {
+                                        echo '<i class="fa-regular fa-star"> style="color: grey;"></i>
+                                            <i class="fa-regular fa-star"> style="color: grey;"></i>
+                                            <i class="fa-regular fa-star"> style="color: grey;"></i>
+                                            <i class="fa-regular fa-star"> style="color: grey;"></i>
+                                            <i class="fa-regular fa-star"> style="color: grey;"></i>';
+                                    } elseif ($fetch_reviews['note'] == 1) {
+                                        echo '<i class="fa-solid fa-star" style="color: goldenrod;"></i>
+                                            <i class="fa-regular fa-star" style="color: grey;"></i>
+                                            <i class="fa-regular fa-star" style="color: grey;"></i>
+                                            <i class="fa-regular fa-star" style="color: grey;"></i>
+                                            <i class="fa-regular fa-star" style="color: grey;"></i>';                                            
+                                    } elseif ($fetch_reviews['note'] == 2) {
+                                        echo '<i class="fa-solid fa-star" style="color: goldenrod;"></i>
+                                            <i class="fa-solid fa-star" style="color: goldenrod;"></i>
+                                            <i class="fa-regular fa-star" style="color: grey;"></i>
+                                            <i class="fa-regular fa-star" style="color: grey;"></i>
+                                            <i class="fa-regular fa-star" style="color: grey;"></i>';
+                                    } else if ($fetch_reviews['note'] == 3){
+                                        echo '<i class="fa-solid fa-star" style="color: goldenrod;"></i>
+                                            <i class="fa-solid fa-star" style="color: goldenrod;"></i>
+                                            <i class="fa-solid fa-star" style="color: goldenrod;"></i>
+                                            <i class="fa-regular fa-star" style="color: grey;"></i>
+                                            <i class="fa-regular fa-star" style="color: grey;"></i>';
+                                    } else if ($fetch_reviews['note'] == 4){
+                                        echo '<i class="fa-solid fa-star" style="color: goldenrod;"></i>
+                                            <i class="fa-solid fa-star" style="color: goldenrod;"></i>
+                                            <i class="fa-solid fa-star" style="color: goldenrod;"></i>
+                                            <i class="fa-solid fa-star" style="color: goldenrod;"></i>
+                                            <i class="fa-regular fa-star" style="color: grey;"></i>';
+                                    } else if ($fetch_reviews['note'] == 5){
+                                        echo '<i class="fa-solid fa-star" style="color: goldenrod;"></i>
+                                            <i class="fa-solid fa-star" style="color: goldenrod;"></i>
+                                            <i class="fa-solid fa-star" style="color: goldenrod;"></i>
+                                            <i class="fa-solid fa-star" style="color: goldenrod;"></i>
+                                            <i class="fa-solid fa-star" style="color: goldenrod;"></i>';
+                                    } ?>                                                                                                       
+                            </div>
+                            <span class="row">Commentaire : </span>
+                            <div class="avis"><?php echo $fetch_reviews['avis']; ?></div>
+                        </div>
+                <?php
+                    }
+                } else {
+                    //Sinon la phrase suivante s'affiche
+                    echo '<p class="vide">Aucun avis publié</p>';
+                }
+
+                ?>
+
+            </div>
+
+        </section>
 
     </section>
 

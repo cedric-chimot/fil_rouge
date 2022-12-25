@@ -77,8 +77,9 @@ if (isset($_POST['update_qty'])) {
          //on se connecte à la table panier en sélectionnant l'ID de l'utilisateur
          $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
          $select_cart->execute([$user_id]);
+         // Retourne le nombre de lignes affectées par le dernier appel à la fonction
          if ($select_cart->rowCount() > 0) {
-            //on créé un tableau associatif par un fetch pour récupérer les données
+            // Récupère la ligne suivante d'un ensemble de résultats PDO
             while ($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
          ?>
          <!-- si des données existent le formulaire suivant s'affiche -->

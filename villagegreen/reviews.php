@@ -30,7 +30,7 @@ if (isset($_POST['add_review'])) {
     $image_tmp_name = $_FILES['image']['tmp_name'];                                     //"tmp_name" = temporary name
     $image_folder = 'assets/images/avatar/' . $image;
 
-    //on va chercher dans la BDD la table 'reviews' par rapport au numéro de commande
+    //on va chercher dans la BDD la table 'reviews' par rapport au numéro de commande et l'id utilisateur
     $select_review = $conn->prepare('SELECT * FROM `reviews` WHERE num_order = ? AND user_id = ?');
     $select_review->execute([$num_order, $user_id]);
     
@@ -58,12 +58,12 @@ if (isset($_POST['add_review'])) {
 
 //paramétrage de la fonction 'delete'
 if (isset($_GET['delete'])) {
-    //association du bouton 'delete' avec l'ID du message
+    //association du bouton 'delete' avec l'ID du commentaire
     $delete_id = $_GET['delete'];
-    //requête de suppression avec lien vers la table 'message'
+    //requête de suppression avec lien vers la table 'reviews'
     $delete_review = $conn->prepare('DELETE FROM `reviews` WHERE id = ?');
     $delete_review->execute([$delete_id]);
-    //renvoie vers la liste des messages
+    //renvoie vers la liste des reviews
     header('location:reviews.php');
 }
 

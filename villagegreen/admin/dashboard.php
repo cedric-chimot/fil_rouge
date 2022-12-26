@@ -38,14 +38,21 @@ if (!isset($admin_id)) {
 
         <h1 class="heading">Tableau de bord</h1>
 
-        <!-- affichage du nom de l'admin connecté -->
         <div class="box-container">
-            <div class="box">
-                <h3>Bienvenue !</h3>
-                <p><?= $fetch_profile['nom']; ?></p>
-                <a href="update_profile.php" class="option-btn">Modifier</a>
-            </div>
 
+            <!-- lien vers les produits vendus sur le site -->
+            <div class="box">
+                <?php
+                $select_products = $conn->prepare("SELECT * FROM `products`");
+                $select_products->execute();
+                $number_products = $select_products->rowCount()
+                ?>
+                <!-- on affiche le nombre de produits -->
+                <h3><?= $number_products; ?></h3>
+                <p>Les produits</p>
+                <a href="products.php" class="option-btn">Produits</a>
+            </div>
+            
             <!-- lien vers les utilisateurs inscrits sur le site -->
             <div class="box">
                 <?php
@@ -60,17 +67,17 @@ if (!isset($admin_id)) {
                 <a href="users_accounts.php" class="option-btn">Clients</a>
             </div>
 
-            <!-- lien vers les produits vendus sur le site -->
+            <!-- lien vers tous les avis clients -->
             <div class="box">
                 <?php
-                $select_products = $conn->prepare("SELECT * FROM `products`");
-                $select_products->execute();
-                $number_products = $select_products->rowCount()
+                $select_reviews = $conn->prepare("SELECT * FROM `reviews`");
+                $select_reviews->execute();
+                $number_reviews = $select_reviews->rowCount();
                 ?>
-                <!-- on affiche le nombre de produits -->
-                <h3><?= $number_products; ?></h3>
-                <p>Les produits</p>
-                <a href="products.php" class="option-btn">Produits</a>
+                <!-- on affiche le nombre total de commandes annulées -->
+                <h3><?= $number_reviews; ?></h3>
+                <p>Avis clients</p>
+                <a href="recap_reviews.php" class="option-btn">Avis</a>
             </div>
 
             <!-- lien vers toutes les commandes effectuées sur le site -->
@@ -150,6 +157,7 @@ if (!isset($admin_id)) {
                 <p>Commandes annulées</p>
                 <a href="canceled_orders.php" class="option-btn">Annulées</a>
             </div>
+
         </div>
 
     </section>

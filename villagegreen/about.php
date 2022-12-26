@@ -40,14 +40,17 @@ if (isset($_SESSION['user_id'])) {
         <div class="flex">
 
             <div class="image">
-                <img src="#"alt="">
+                <img src="assets/images/BODY/pub_guitare.png""alt="">
             </div>
 
             <div class="content">
                 <h3>Pourquoi nous faire confiance ?</h3>
-                <p>
+                <p>Spécialisé dans la vente de matériel de musique toutes marques depuis plus de 5 ans,
+                    nous sommes devenus une référence pour les amateurs comme les passionnés.
                 </p>
-                <p></p>
+                <p>Vous voulez du matériel de qualité, venez chez Villagegreen, nos clients apprécient nos services,
+                    nos boutiques sont gérées par des spécialistes exigeants, toujours à l'écoute de leur public.
+                </p>
                 <a href="contact.php" class="option-btn">Contactez-nous</a>
             </div>
 
@@ -61,7 +64,7 @@ if (isset($_SESSION['user_id'])) {
 
                 <?php
                 //requête pour afficher les données de la table 'reviews' par rapport à la note et limité à 6 sur la page
-                $select_reviews = $conn->prepare('SELECT * FROM reviews ORDER BY id LIMIT 6');
+                $select_reviews = $conn->prepare('SELECT * FROM reviews ORDER BY id DESC LIMIT 6');
                 $select_reviews->execute();
                 // Retourne le nombre de lignes affectées par le dernier appel à la fonction
                 if ($select_reviews->rowCount() > 0) {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 24 déc. 2022 à 17:15
+-- Généré le : lun. 26 déc. 2022 à 14:16
 -- Version du serveur : 10.4.25-MariaDB
 -- Version de PHP : 8.1.10
 
@@ -62,7 +62,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `user_id`, `pid`, `libelle`, `prix`, `quantite`, `image`) VALUES
-(47, 1, 2, 'Batterie', 849, 1, 'batterie.png');
+(47, 1, 2, 'Batterie', 849, 1, 'batterie.png'),
+(48, 1, 3, 'Micro', 259, 1, 'micro.png');
 
 -- --------------------------------------------------------
 
@@ -113,16 +114,18 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `nom`, `prenom`, `telephone`, `adresse`, `cp`, `ville`, `total_produits`, `prixTTC`, `date_commande`, `statut_commande`) VALUES
-(1, 2, 'Stark', 'Tony', '1146890071', '10 rue des Espions', '75075', 'Paris', 'Kawai ES-8 B (1256 x 1) - Guitare (85 x 1) - Startone SAS-75 Alto (620 x 1) - ', 1961, '2022-12-02', 'retard'),
-(2, 3, 'Rogers', 'Steve', '727897220', 'rue de la Paix', '75075', 'Paris', 'Trompette (299 x 1) - Sono (599 x 1) - Harley Benton D-120CE BK (79 x 1) - ', 977, '2022-12-04', 'annulee'),
+(1, 2, 'Stark', 'Tony', '1146890071', '10 rue des Espions', '75075', 'Paris', 'Kawai ES-8 B (1256 x 1) - Guitare (85 x 1) - Startone SAS-75 Alto (620 x 1) - ', 1961, '2022-12-02', 'terminee'),
+(2, 3, 'Rogers', 'Steve', '727897220', 'rue de la Paix', '75075', 'Paris', 'Trompette (299 x 1) - Sono (599 x 1) -', 898, '2022-12-04', 'annulee'),
 (3, 3, 'Rogers', 'Steve', '727897220', 'rue de la Paix', '75075', 'Paris', 'Trompette (299 x 1) - Batterie (849 x 1) - Kawai ES-8 B (1256 x 1) - ', 2404, '2022-12-04', 'terminee'),
 (4, 1, 'Chimot', 'Cédric', '1146890071', 'rue des Héros', '75075', 'Paris', 'Guitare (85 x 1) - Micro (259 x 1) - Case (310 x 1) - ', 654, '2022-12-04', 'terminee'),
 (5, 1, 'Chimot', 'Cédric', '1146890071', 'rue des Héros', '75075', 'Paris', 'Piano (2259 x 1) - Trompette (299 x 1) - ', 2558, '2022-12-04', 'terminee'),
 (6, 4, 'Lucky', 'Luke', '012564803', 'rue de la BD', '85075', 'Paris', 'Guitare (79 x 1) - Harley Benton D-120CE BK (79 x 1) - ', 158, '2022-12-04', 'annulee'),
 (7, 5, 'Blake', 'Francis', '727897220', '10 rue de la BD', '950633', 'Bruxelles', 'Piano (2259 x 1) - Startone SAS-75 Alto (620 x 1) - ', 2879, '2022-12-04', 'terminee'),
-(8, 2, 'Stark', 'Tony', '1234376679', '10 rue des Espions', '75075', 'Paris', 'Harley Benton D-120CE BK (75 x 1) - Cables (159 x 1) - Batterie (849 x 1) - ', 1083, '2022-12-04', 'en attente'),
+(8, 2, 'Stark', 'Tony', '1234376679', '10 rue des Espions', '75075', 'Paris', 'Harley Benton D-120CE BK (75 x 1) - Cables (159 x 1) - Batterie (849 x 1) - ', 1083, '2022-12-04', 'retard'),
 (9, 6, 'Wayne Bruce', 'Bruce', '012564803', 'rue des Héros', '75075', 'Paris', 'Batterie (849 x 1) - Guitare (79 x 1) - Sono (599 x 1) - Startone SAS-75 Alto (620 x 1) - ', 2147, '2022-12-04', 'terminee'),
-(10, 6, 'Wayne', 'Bruce', '012564803', 'rue des Héros', '75075', 'Paris', 'Harley Benton D-120CE BK (79 x 1) - Kawai ES-8 B (1256 x 1) - Micro (259 x 1) - ', 1594, '2022-12-04', 'annulee');
+(10, 6, 'Wayne', 'Bruce', '012564803', 'rue des Héros', '75075', 'Paris', 'Harley Benton D-120CE BK (79 x 1) - Kawai ES-8 B (1256 x 1) - Micro (259 x 1) - ', 1594, '2022-12-04', 'annulee'),
+(11, 6, 'Wayne', 'Bruce', '012564803', 'rue des Héros', '75075', 'Paris', 'Harley Benton D-120CE BK (75 x 1) - Startone SAS-75 Alto (620 x 1) - Guitare (79 x 1) - ', 774, '2022-12-26', 'en attente'),
+(12, 4, 'Lucky', 'Luke', '012564803', 'rue de la BD', '85075', 'Paris', 'Guitare (79 x 1) - Trompette (299 x 1) - ', 378, '2022-12-26', 'terminee');
 
 -- --------------------------------------------------------
 
@@ -203,7 +206,13 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`id`, `user_id`, `num_order`, `client`, `note`, `avis`, `image`) VALUES
-(1, 1, 4, 'Cédric Chimot', 5, 'Bonne commande merci pour tout, je repasserai. A bientôt :)', 'cedric_samus avatar.png');
+(1, 1, 4, 'Cédric Chimot', 5, 'Bonne commande merci pour tout, je repasserai. A bientôt :)', 'cedric_samus avatar.png'),
+(2, 6, 9, 'Bruce Wayne', 5, 'Tout c&#039;est très bien passé, super expérience. Merci pour tout ;)', 'pic-3.png'),
+(3, 4, 12, 'Lucky Luke', 5, 'Très satisfait de ma commande, je reviendrais très certainement. Merci.', 'pic-5.png'),
+(4, 2, 1, 'Tony Stark', 5, 'Très satisfait de mon expérience. Commande rapidement traitée, merci.', '2019-03-27.jpg'),
+(5, 3, 3, 'Steve Rogers', 4, 'Matériel endommagé remplacé rapidement. Merci.', 'pic-1.png'),
+(6, 5, 7, 'Francis Blake', 5, 'Merci pour votre patience et votre expertise, je reviendrais c&#039;est sur ;)', 'cedric_samus avatar-1.png'),
+(7, 1, 5, 'Cédric Chimot', 5, 'Merci pour tout, tout c&#039;est passé comme prévu. A bientôt ;)', 'cedric_samus avatar.png');
 
 -- --------------------------------------------------------
 
@@ -303,7 +312,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT pour la table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT pour la table `messages`
@@ -315,7 +324,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT pour la table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `products`
@@ -327,7 +336,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT pour la table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `users`

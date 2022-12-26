@@ -683,13 +683,14 @@ section {
 
 .orders .box-container .box p {
   margin: 0.5rem 0;
-  line-height: 1.8;
-  font-size: 2rem;
+  line-height: 1.5;
+  font-size: 1.8rem;
   color: var(--black);
 }
 
 .orders .box-container .box p span {
   color: var(--orange);
+  font-size: 1.8rem;
 }
 
 .reviews .heading {
@@ -826,7 +827,16 @@ section {
 .about .flex .content{
   flex: 1 1 40rem;
   padding: 2rem;
-  background-color: var(--light-color);
+  background-color: var(--white);
+  /* border: var(--border); */
+}
+
+.about .flex .content h3 {
+  font-size: 2.2rem;
+  color: black;
+  text-decoration: underline;
+  padding: 1rem;
+  text-transform: uppercase;
 }
 
 .about .heading{
@@ -837,7 +847,7 @@ section {
   padding: 1rem 0;
   line-height: 2;
   font-size: 1.8rem;
-  color: var(--light-bg);
+  color: var(--black);
 }
 
 .about .reviews .box-container{
@@ -880,7 +890,6 @@ section {
   color: var(--orange);
   margin-bottom: 1.5rem;
 }
-
 
 .about .reviews .box-container .box .note{
   text-align: center;

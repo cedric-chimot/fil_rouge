@@ -20,8 +20,8 @@ if (isset($_GET['delete'])) {
    //on supprime le compte d'admin par rapport à l'ID
    $delete_admins = $conn->prepare("DELETE FROM `admins` WHERE id = ?");
    $delete_admins->execute([$delete_id]);
-   //on renvoie ensuite vers la page des comptes d'administrateur
-   header('location:admin_accounts.php');
+   //on renvoie ensuite vers la page de login
+   header('location:admin_login.php');
 }
 
 ?>
@@ -50,7 +50,7 @@ if (isset($_GET['delete'])) {
 
          <div class="box">
             <p>Ajouter un admin</p>
-            <a href="register_admin.php" class="option-btn">S'inscrire</a>
+            <a href="register_admin.php" class="option-btn">Créer</a>
          </div>
 
          <?php

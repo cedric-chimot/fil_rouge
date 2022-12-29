@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 26 déc. 2022 à 14:16
+-- Généré le : jeu. 29 déc. 2022 à 23:32
 -- Version du serveur : 10.4.25-MariaDB
 -- Version de PHP : 8.1.10
 
@@ -62,8 +62,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `user_id`, `pid`, `libelle`, `prix`, `quantite`, `image`) VALUES
-(47, 1, 2, 'Batterie', 849, 1, 'batterie.png'),
-(48, 1, 3, 'Micro', 259, 1, 'micro.png');
+(54, 6, 1, 'Guitare', 79, 1, 'guitare.png');
 
 -- --------------------------------------------------------
 
@@ -73,7 +72,7 @@ INSERT INTO `cart` (`id`, `user_id`, `pid`, `libelle`, `prix`, `quantite`, `imag
 
 CREATE TABLE `messages` (
   `id` int(100) NOT NULL,
-  `user_id` int(100) NOT NULL,
+  `user_id` int(100) DEFAULT NULL,
   `nom` varchar(100) NOT NULL,
   `prenom` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -312,13 +311,13 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT pour la table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT pour la table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `orders`

@@ -209,7 +209,7 @@ section{
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(../image/Lamborghini-Hurcán-STO.jpg) no-repeat;
+    background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(../image/Lamborghini.jpg) no-repeat;
     background-size: cover;
     background-position: center;
 }
